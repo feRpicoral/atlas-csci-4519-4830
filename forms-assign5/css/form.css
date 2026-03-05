@@ -16,5 +16,30 @@ div#formcol1 {
 
 
 
+/* Step 12: Style labels - set width, alignment, and display */
+label {
+    margin-right: .3em;
+    width: 6.3em;
+    display: inline-block;
+    text-align: right;
+}
+
+/* Step 12: Remove bullet points for Speaker Info list items */
+#formcol1 li {
+    list-style: none;
+}
+
+/* Step 18a: Highlight current keyboard and mouse focus */
+select:focus, select:active, input:focus, input:active, input:focus + label,
+input:active + label, label[for]:focus, label[for]:active {
+    color: #FFF !important;
+    background-color: #BB3D2F !important;
+}
+
+/* Step 18c: Required field background color */
+#formcol1 input.reqfield {
+    background: #FF9;
+}
+
 /* end of form css */
 	
