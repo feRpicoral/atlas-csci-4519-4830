@@ -30,3 +30,30 @@ button:focus,
   outline: 2px solid #005fcc;
   outline-offset: 2px;
 }
+
+/* Fix contrast: Bootstrap navbar-dark .nav-link uses rgba(255,255,255,.5) which fails WCAG AA (4.22:1) */
+.navbar-dark .nav-link {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.navbar-dark .nav-link:hover,
+.navbar-dark .nav-link:focus {
+  color: #fff;
+}
+
+/* Fix contrast: Bootstrap btn-primary white text on #007bff fails WCAG AA (4.03:1) */
+.btn-primary {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #004494;
+  border-color: #003d85;
+}
+
+/* Fix contrast: white text on bg-secondary (#6c757d) is borderline - darken background */
+.bg-secondary.text-white {
+  background-color: #565e64 !important;
+}
