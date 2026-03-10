@@ -31,13 +31,13 @@ button:focus,
   outline-offset: 2px;
 }
 
-/* Fix contrast: Bootstrap navbar-dark .nav-link uses rgba(255,255,255,.5) which fails WCAG AA (4.22:1) */
-.navbar-dark .nav-link {
-  color: rgba(255, 255, 255, 0.85);
+/* Fix contrast: Bootstrap .navbar-dark .navbar-nav .nav-link uses rgba(255,255,255,.5) which fails WCAG AA */
+.navbar-dark .navbar-nav .nav-link {
+  color: #fff;
 }
 
-.navbar-dark .nav-link:hover,
-.navbar-dark .nav-link:focus {
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus {
   color: #fff;
 }
 
@@ -53,7 +53,11 @@ button:focus,
   border-color: #003d85;
 }
 
-/* Fix contrast: white text on bg-secondary (#6c757d) is borderline - darken background */
-.bg-secondary.text-white {
-  background-color: #565e64 !important;
+/* Fix contrast: white text on bg-secondary (#6c757d) fails WCAG AA - darken background and ensure white text */
+aside.card.bg-secondary {
+  background-color: #495057 !important;
+}
+
+aside.card.bg-secondary p {
+  color: #fff !important;
 }
