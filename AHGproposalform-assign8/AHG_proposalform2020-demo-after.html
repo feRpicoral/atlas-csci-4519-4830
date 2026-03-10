@@ -43,16 +43,16 @@ accommodations, assistifve technology, DOJ, Department of Justice, WAI" />
   <ul>
     <li>
       <label for="fstspkr1">First Name:</label>
-      <input id="fstspkr1" name="fstspkr1" type="text"  />
+      <input id="fstspkr1" name="fstspkr1" type="text" required aria-required="true" />
     </li>
     <li>
       <label for="lstname1">Last Names:</label>
-      <input id="lstname1" name="lstname1" type="text"  />
+      <input id="lstname1" name="lstname1" type="text" required aria-required="true" />
     </li>
     
     <li>
       <label for="degree1">Highest Academic Degree:</label>
-      <input id="degree1" name="degree1" type="text"  />
+      <input id="degree1" name="degree1" type="text" required aria-required="true" />
     </li>
     <li>
       <label for="company1">Institution or Organization:</label>
@@ -60,12 +60,12 @@ accommodations, assistifve technology, DOJ, Department of Justice, WAI" />
     </li>
     <li>
       <label for="telno1" >Phone Number:</label>
-      <input id="telno1" name="telno1" type="text"  />
+      <input id="telno1" name="telno1" type="tel" required aria-required="true" />
     </li>
     
     <li>
       <label for="email1" >e-mail:</label>
-      <input id="email1" name="email1" type="text" />
+      <input id="email1" name="email1" type="email" required aria-required="true" />
     </li>
   </ul>
   </fieldset>
@@ -73,7 +73,7 @@ accommodations, assistifve technology, DOJ, Department of Justice, WAI" />
   <fieldset class="spkrques">
   <legend><strong>Have you presented at a national conference or taught a college-level, semester-long course?<span class="star">*</span></strong></legend>
   <div class="oneques"> <span>
-  <input value="1" id="natconfexp1_yes" name="natconfexp1" type="radio" />
+  <input value="1" id="natconfexp1_yes" name="natconfexp1" type="radio" required aria-required="true" />
     <label for="natconfexp1_yes">yes</label>
     </span> <span>
       <input value="0" id="natconfexp1_no" name="natconfexp1" type="radio" />
@@ -84,7 +84,7 @@ accommodations, assistifve technology, DOJ, Department of Justice, WAI" />
   <div class="suggest_form">
   <label for="Speaker1bio"><strong>Presenter 1 bio&nbsp;</strong>(1500 characters maximum)</label>
 
-  <textarea id="Speaker1bio" name="Speaker1bio" cols="80" rows="4" maxlength="1500"></textarea>
+  <textarea id="Speaker1bio" name="Speaker1bio" cols="80" rows="4" minlength="50" maxlength="1500"></textarea>
   </div>
  
 <div class="formcol">
@@ -105,7 +105,7 @@ accommodations, assistifve technology, DOJ, Department of Justice, WAI" />
 <li>
 	<label for="proptitle">Proposal Title:</label>
 	<input id="proptitle" name="proptitle" class="reqfield" type="text"
-    maxlength="150" />
+    minlength="5" maxlength="150" required aria-required="true" />
    
 </li>
 </ul>
