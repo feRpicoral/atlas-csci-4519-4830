@@ -38,11 +38,8 @@ accommodations, assistifve technology, DOJ, Department of Justice, WAI" />
  <h3>Speaker Information</h3>
  <form action="AHG_saveprop2020.php" method="post" id="AHGproposalform2020" aria-describedby="form-instructions">
   <p id="form-instructions">Please complete this form to submit your presenter proposal for the AHG 2020 conference. Fields marked with an asterisk (<span class="star">*</span>) are required. Please provide a valid email address and phone number.</p>
-  <div class="speakerinfo">
-
-
-
-<p><strong>1st Presenter*</strong></p>
+  <fieldset class="speakerinfo">
+    <legend><strong>1st Presenter<span class="star">*</span></strong></legend>
   <ul>
     <li>
       <label for="fstspkr1">First Name:</label>
@@ -71,30 +68,24 @@ accommodations, assistifve technology, DOJ, Department of Justice, WAI" />
       <input id="email1" name="email1" type="text" />
     </li>
   </ul>
-  <hr />
-  
-  <div class="spkrques">
-  <p><strong>Have you presented at a  national conference or taught a college-level, semester-long course?*</strong></p>
+  </fieldset>
+
+  <fieldset class="spkrques">
+  <legend><strong>Have you presented at a national conference or taught a college-level, semester-long course?<span class="star">*</span></strong></legend>
   <div class="oneques"> <span>
   <input value="1" id="natconfexp1_yes" name="natconfexp1" type="radio" />
-    <label for="natconfexp1_yes" >yes</label>
+    <label for="natconfexp1_yes">yes</label>
     </span> <span>
       <input value="0" id="natconfexp1_no" name="natconfexp1" type="radio" />
-      <label for="natconfexp1_no" >no</label>
+      <label for="natconfexp1_no">no</label>
   </span> </div>
-  
-  
+  </fieldset>
+
   <div class="suggest_form">
   <label for="Speaker1bio"><strong>Presenter 1 bio&nbsp;</strong>(1500 characters maximum)</label>
-  
-  
+
   <textarea id="Speaker1bio" name="Speaker1bio" cols="80" rows="4" maxlength="1500"></textarea>
-</div>
-
-
-
-
-</div>
+  </div>
  
 <div class="formcol">
 
