@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description"
+    content="Order online from Tandoori Kitchen — Indian and Himalayan cuisine in Lafayette, CO. Accessible redesign for ATLS 4519 / CSCI 4830.">
+  <meta name="author" content="Fernando Picoral">
+
+  <title>Order Online — Tandoori Kitchen | ATLS 4519 / CSCI 4830 Extra Credit</title>
+
+  <!-- Bootstrap 4 CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+  <style>
+    /* ===========================
+       VARIABLES
+       =========================== */
+    :root {
+      --tk-red: #c1272d;
+      --tk-red-dark: #9e1f24;
+      --tk-gold: #d4a843;
+      --tk-dark: #1a1a1a;
+      --tk-focus: #0d6efd;
+      --tk-gf: #198754;
+      --tk-df: #0d6efd;
+      --tk-v: #6f42c1;
+    }
+
+    /* ===========================
+       SKIP LINK
+       =========================== */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 0;
+      background: var(--tk-focus);
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      z-index: 9999;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 0 0 6px 0;
+    }
+
+    .skip-link:focus {
+      top: 0;
+      color: #fff;
+    }
+
+    /* ===========================
+       GLOBAL FOCUS
+       =========================== */
+    *:focus-visible {
+      outline: 2px solid var(--tk-focus);
+      outline-offset: 2px;
+    }
+
+    /* ===========================
+       BODY
+       =========================== */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #f5f5f5;
+    }
+
+    /* ===========================
+       HEADER / NAV
+       =========================== */
+    .site-header {
+      background: var(--tk-dark);
+    }
+
+    .site-header .navbar-brand img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      margin-right: 0.5rem;
+    }
+
+    .site-header .nav-link {
+      color: rgba(255, 255, 255, 0.85) !important;
+      font-weight: 500;
+    }
+
+    .site-header .nav-link:hover,
+    .site-header .nav-link:focus {
+      color: var(--tk-gold) !important;
+    }
+
+    .site-header .nav-link.active {
+      color: var(--tk-gold) !important;
+      border-bottom: 2px solid var(--tk-gold);
+    }
+
+    /* ===========================
+       HERO
+       =========================== */
+    .hero {
+      position: relative;
+      background: url('https://tandoorikitchenco.com/wp-content/uploads/2022/04/DSC00711-min.jpeg') center/cover
+        no-repeat;
+      min-height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      color: #fff;
+      padding: 2rem 1rem;
+    }
+
+    .hero-content h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .hero-content p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    /* ===========================
+       DIETARY LEGEND
+       =========================== */
+    .legend-bar {
+      background: #fff3cd;
+      border-bottom: 1px solid #ffc107;
+      padding: 0.5rem 0;
+    }
+
+    .legend-bar .legend-list {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      font-size: 0.875rem;
+    }
+
+    .legend-bar .legend-label {
+      font-weight: 700;
+      margin-right: 0.25rem;
+    }
+
+    /* ===========================
+       DIET BADGES
+       =========================== */
+    .diet-badge {
+      display: inline-block;
+      padding: 0.15em 0.5em;
+      font-size: 0.7rem;
+      font-weight: 700;
+      border-radius: 3px;
+      margin-right: 0.15rem;
+      vertical-align: middle;
+    }
+
+    .badge-gf {
+      background: var(--tk-gf);
+      color: #fff;
+    }
+
+    .badge-df {
+      background: var(--tk-df);
+      color: #fff;
+    }
+
+    .badge-v {
+      background: var(--tk-v);
+      color: #fff;
+    }
+
+    /* ===========================
+       LAYOUT: SIDEBAR + MAIN
+       =========================== */
+    .menu-layout {
+      display: flex;
+      gap: 0;
+      min-height: calc(100vh - 56px);
+    }
+
+    /* ===========================
+       CATEGORY SIDEBAR (tablist)
+       =========================== */
+    .cat-sidebar {
+      width: 220px;
+      min-width: 220px;
+      background: #fff;
+      border-right: 1px solid #dee2e6;
+      padding: 1rem 0;
+      position: sticky;
+      top: 56px;
+      align-self: flex-start;
+      max-height: calc(100vh - 56px);
+      overflow-y: auto;
+    }
+
+    .cat-sidebar .cat-tab {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 0.6rem 1.25rem;
+      font-size: 0.9rem;
+      color: #333;
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      font-weight: 500;
+    }
+
+    .cat-sidebar .cat-tab:hover {
+      background: #f8f9fa;
+    }
+
+    .cat-sidebar .cat-tab[aria-selected="true"] {
+      background: #fef3f3;
+      border-left-color: var(--tk-red);
+      color: var(--tk-red);
+      font-weight: 700;
+    }
+
+    .cat-sidebar .cat-tab:focus-visible {
+      outline: 2px solid var(--tk-focus);
+      outline-offset: -2px;
+    }
+
+    /* ===========================
+       MENU CONTENT AREA
+       =========================== */
+    .menu-content {
+      flex: 1;
+      padding: 1.5rem 2rem 3rem;
+      max-width: 900px;
+    }
+
+    .menu-content .cat-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .menu-content .cat-section h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      border-bottom: 2px solid var(--tk-red);
+      padding-bottom: 0.35rem;
+      margin-bottom: 1rem;
+      color: var(--tk-dark);
+    }
+
+    /* ===========================
+       DISH CARD
+       =========================== */
+    .dish-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      background: #fff;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 0.85rem;
+      margin-bottom: 0.75rem;
+      transition: box-shadow 0.15s;
+    }
+
+    .dish-card:hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .dish-card img {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .dish-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .dish-info h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 0.2rem;
+    }
+
+    .dish-info .dish-desc {
+      font-size: 0.85rem;
+      color: #555;
+      margin: 0 0 0.3rem;
+    }
+
+    .dish-info .dish-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .dish-price {
+      font-weight: 700;
+      color: var(--tk-dark);
+      font-size: 0.95rem;
+    }
+
+    .add-btn {
+      background: var(--tk-red);
+      color: #fff;
+      border: none;
+      padding: 0.35rem 0.9rem;
+      border-radius: 5px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      margin-left: auto;
+      flex-shrink: 0;
+      align-self: center;
+    }
+
+    .add-btn:hover {
+      background: var(--tk-red-dark);
+    }
+
+    .add-btn:focus-visible {
+      outline: 2px solid var(--tk-focus);
+      outline-offset: 2px;
+    }
+
+    /* ===========================
+       CART SIDEBAR
+       =========================== */
+    .cart-sidebar {
+      width: 300px;
+      min-width: 300px;
+      background: #fff;
+      border-left: 1px solid #dee2e6;
+      padding: 1.25rem;
+      position: sticky;
+      top: 56px;
+      align-self: flex-start;
+      max-height: calc(100vh - 56px);
+      overflow-y: auto;
+    }
+
+    .cart-sidebar h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .cart-empty {
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 0.875rem;
+    }
+
+    .cart-item-name {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .cart-item-qty {
+      margin: 0 0.5rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .cart-item-price {
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .cart-remove-btn {
+      background: none;
+      border: none;
+      color: #dc3545;
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 0 0.25rem;
+      line-height: 1;
+      margin-left: 0.35rem;
+    }
+
+    .cart-remove-btn:focus-visible {
+      outline: 2px solid var(--tk-focus);
+      outline-offset: 2px;
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 1.05rem;
+      padding-top: 0.75rem;
+      margin-top: 0.5rem;
+      border-top: 2px solid #333;
+    }
+
+    .cart-checkout-btn {
+      display: block;
+      width: 100%;
+      background: var(--tk-red);
+      color: #fff;
+      border: none;
+      padding: 0.65rem;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 0.75rem;
+    }
+
+    .cart-checkout-btn:hover {
+      background: var(--tk-red-dark);
+    }
+
+    .cart-checkout-btn:focus-visible {
+      outline: 2px solid var(--tk-focus);
+      outline-offset: 2px;
+    }
+
+    /* SR-only live announcements */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ===========================
+       FOOTER
+       =========================== */
+    .site-footer {
+      background: var(--tk-dark);
+      color: #ccc;
+      padding: 1.25rem 0;
+      text-align: center;
+      font-size: 0.875rem;
+    }
+
+    .site-footer a {
+      color: var(--tk-gold);
+    }
+
+    .site-footer a:hover,
+    .site-footer a:focus {
+      color: #fff;
+    }
+
+    /* ===========================
+       RESPONSIVE
+       =========================== */
+    @media (max-width: 991px) {
+      .cat-sidebar {
+        display: none;
+      }
+
+      .cart-sidebar {
+        display: none;
+      }
+
+      .menu-content {
+        padding: 1rem;
+        max-width: 100%;
+      }
+
+      /* Show mobile category bar */
+      .mobile-cat-bar {
+        display: flex !important;
+      }
+
+      .mobile-cart-toggle {
+        display: inline-flex !important;
+      }
+    }
+
+    @media (min-width: 992px) {
+      .mobile-cat-bar {
+        display: none !important;
+      }
+
+      .mobile-cart-toggle {
+        display: none !important;
+      }
+    }
+
+    /* Mobile category bar */
+    .mobile-cat-bar {
+      overflow-x: auto;
+      white-space: nowrap;
+      background: #fff;
+      border-bottom: 1px solid #dee2e6;
+      padding: 0.4rem 0.75rem;
+      gap: 0.35rem;
+    }
+
+    .mobile-cat-bar .cat-pill {
+      display: inline-block;
+      padding: 0.35rem 0.85rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid #dee2e6;
+      background: #fff;
+      color: #333;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .mobile-cat-bar .cat-pill[aria-selected="true"] {
+      background: var(--tk-red);
+      color: #fff;
+      border-color: var(--tk-red);
+    }
+
+    .mobile-cat-bar .cat-pill:focus-visible {
+      outline: 2px solid var(--tk-focus);
+      outline-offset: 2px;
+    }
+
+    /* Mobile cart toggle */
+    .mobile-cart-toggle {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      background: var(--tk-red);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 0.75rem 1.25rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+      z-index: 1050;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+
+    .mobile-cart-toggle:focus-visible {
+      outline: 2px solid var(--tk-focus);
+      outline-offset: 2px;
+    }
+
+    .cart-badge {
+      background: #fff;
+      color: var(--tk-red);
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    /* Mobile cart overlay */
+    .cart-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1060;
+    }
+
+    .cart-overlay.open {
+      display: block;
+    }
+
+    .cart-overlay .cart-panel {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 320px;
+      max-width: 90vw;
+      background: #fff;
+      padding: 1.25rem;
+      overflow-y: auto;
+    }
+
+    .cart-overlay .close-cart {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      float: right;
+      line-height: 1;
+    }
+
+    .cart-overlay .close-cart:focus-visible {
+      outline: 2px solid var(--tk-focus);
+      outline-offset: 2px;
+    }
+
+    /* ===========================
+       SEARCH
+       =========================== */
+    .menu-search {
+      margin-bottom: 1.25rem;
+    }
+
+    .menu-search input:focus-visible {
+      outline: 2px solid var(--tk-focus);
+      outline-offset: 2px;
+      box-shadow: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ======= SKIP LINK ======= -->
+  <a class="skip-link" href="#menu-region">Skip to menu</a>
+
+  <!-- ======= HEADER ======= -->
+  <header class="site-header">
+    <nav class="navbar navbar-expand-lg navbar-dark" aria-label="Primary navigation">
+      <div class="container-fluid px-3">
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2020/09/Webp.net-resizeimage-150x150.avif"
+            alt="Tandoori Kitchen logo" width="36" height="36">
+          Tandoori Kitchen
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#siteNav"
+          aria-controls="siteNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="siteNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link active" href="order-online.html" aria-current="page">Order Online</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://tandoorikitchenco.com/menu/">Menu</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://tandoorikitchenco.com/lunch-buffet/">Lunch Buffet</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://tandoorikitchenco.com/catering/">Catering</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://tandoorikitchenco.com/about/">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://tandoorikitchenco.com/contact/">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ======= HERO ======= -->
+  <div class="hero" role="banner">
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="hero-content">
+      <h1>Order Online &mdash; Tandoori Kitchen</h1>
+      <p>Indian &amp; Himalayan Cuisine &bull; Lafayette, CO</p>
+    </div>
+  </div>
+
+  <!-- ======= DIETARY LEGEND ======= -->
+  <div class="legend-bar" role="note" aria-label="Dietary abbreviation legend">
+    <div class="container-fluid px-3">
+      <ul class="legend-list">
+        <li><span class="legend-label">Dietary Key:</span></li>
+        <li><span class="diet-badge badge-gf">GF</span> Gluten Free</li>
+        <li><span class="diet-badge badge-df">DF</span> Dairy Free</li>
+        <li><span class="diet-badge badge-v">V</span> Vegan</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ======= MOBILE CATEGORY BAR ======= -->
+  <div class="mobile-cat-bar" role="tablist" aria-label="Menu categories (mobile)">
+    <button class="cat-pill" role="tab" aria-selected="true" data-cat="appetizers">Appetizers</button>
+    <button class="cat-pill" role="tab" aria-selected="false" data-cat="curries">Curries</button>
+    <button class="cat-pill" role="tab" aria-selected="false" data-cat="vegetarian">Vegetarian</button>
+    <button class="cat-pill" role="tab" aria-selected="false" data-cat="breads">Breads</button>
+    <button class="cat-pill" role="tab" aria-selected="false" data-cat="himalayan">Himalayan</button>
+    <button class="cat-pill" role="tab" aria-selected="false" data-cat="kebabs">Kebabs</button>
+    <button class="cat-pill" role="tab" aria-selected="false" data-cat="biryani">Biryani</button>
+    <button class="cat-pill" role="tab" aria-selected="false" data-cat="soups">Soups &amp; Salads</button>
+    <button class="cat-pill" role="tab" aria-selected="false" data-cat="sides">Sides</button>
+    <button class="cat-pill" role="tab" aria-selected="false" data-cat="desserts">Desserts</button>
+    <button class="cat-pill" role="tab" aria-selected="false" data-cat="drinks">Drinks</button>
+  </div>
+
+  <!-- ======= MAIN LAYOUT ======= -->
+  <div class="menu-layout">
+
+    <!-- === CATEGORY SIDEBAR (desktop) === -->
+    <nav class="cat-sidebar" aria-label="Menu categories">
+      <div role="tablist" aria-label="Menu categories">
+        <button class="cat-tab" role="tab" aria-selected="true" data-cat="appetizers">Appetizers</button>
+        <button class="cat-tab" role="tab" aria-selected="false" data-cat="curries">Curries</button>
+        <button class="cat-tab" role="tab" aria-selected="false" data-cat="vegetarian">Vegetarian Entrees</button>
+        <button class="cat-tab" role="tab" aria-selected="false" data-cat="breads">Tandoori Breads</button>
+        <button class="cat-tab" role="tab" aria-selected="false" data-cat="himalayan">Himalayan Entrees</button>
+        <button class="cat-tab" role="tab" aria-selected="false" data-cat="kebabs">Kebabs</button>
+        <button class="cat-tab" role="tab" aria-selected="false" data-cat="biryani">Biryani</button>
+        <button class="cat-tab" role="tab" aria-selected="false" data-cat="soups">Soups &amp; Salads</button>
+        <button class="cat-tab" role="tab" aria-selected="false" data-cat="sides">Sides</button>
+        <button class="cat-tab" role="tab" aria-selected="false" data-cat="desserts">Desserts</button>
+        <button class="cat-tab" role="tab" aria-selected="false" data-cat="drinks">Drinks</button>
+      </div>
+    </nav>
+
+    <!-- === MENU CONTENT === -->
+    <main id="menu-region" class="menu-content">
+
+      <!-- Search -->
+      <div class="menu-search">
+        <label for="menu-search-input" class="sr-only">Search the menu</label>
+        <input type="search" id="menu-search-input" class="form-control" placeholder="Search dishes..."
+          aria-label="Search the menu">
+      </div>
+
+      <!-- ========== APPETIZERS ========== -->
+      <section class="cat-section" id="cat-appetizers" aria-labelledby="heading-appetizers">
+        <h2 id="heading-appetizers">Appetizers</h2>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/Gemini_Generated_Image_mhhqynmhhqynmhhq.webp"
+            alt="Two crispy vegetable samosas filled with spiced potatoes and peas">
+          <div class="dish-info">
+            <h3>Vegetable Samosa</h3>
+            <p class="dish-desc">Pastry stuffed with potatoes, peas, and spices (2 pcs).</p>
+            <div class="dish-meta">
+              <span class="dish-price">$5.00</span>
+              <span class="diet-badge badge-v" aria-label="Vegan">V</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Vegetable Samosa to cart"
+            data-name="Vegetable Samosa" data-price="5.00">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/163888_0-1266-5478-5478.avif"
+            alt="Golden fried pakora vegetable fritters on a plate">
+          <div class="dish-info">
+            <h3>Pakora</h3>
+            <p class="dish-desc">Mixed vegetable fritters served with mint and tamarind chutney.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$6.00</span>
+              <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+              <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Pakora to cart"
+            data-name="Pakora" data-price="6.00">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/wings2.avif"
+            alt="Tandoori chicken wings charred from a clay oven">
+          <div class="dish-info">
+            <h3>Tandoori Chicken Wings</h3>
+            <p class="dish-desc">Marinated chicken wings fire cooked in a tandoori oven, served spicy or regular.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$10.00</span>
+              <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Tandoori Chicken Wings to cart"
+            data-name="Tandoori Chicken Wings" data-price="10.00">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/image1.avif"
+            alt="Samosa chat topped with chickpeas, tamarind, and yogurt">
+          <div class="dish-info">
+            <h3>Samosa Chat</h3>
+            <p class="dish-desc">Samosas topped with chickpeas, tamarind, and yogurt sauce.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$8.00</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Samosa Chat to cart"
+            data-name="Samosa Chat" data-price="8.00">Add to Cart</button>
+        </div>
+      </section>
+
+      <!-- ========== CURRIES ========== -->
+      <section class="cat-section" id="cat-curries" aria-labelledby="heading-curries">
+        <h2 id="heading-curries">Curries</h2>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/tikka_masala_tk_web.avif"
+            alt="Bowl of chicken tikka masala in a creamy tomato sauce">
+          <div class="dish-info">
+            <h3>Tikka Masala</h3>
+            <p class="dish-desc">Tomato and cream sauce with tandoori-smoked meats.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$14.99</span>
+              <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Tikka Masala to cart"
+            data-name="Tikka Masala" data-price="14.99">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2020/07/korma.avif"
+            alt="Creamy korma curry with nuts in a warm mild sauce">
+          <div class="dish-info">
+            <h3>Korma</h3>
+            <p class="dish-desc">Mild gravy with nuts, cream, and delicate spice.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$14.99</span>
+              <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Korma to cart"
+            data-name="Korma" data-price="14.99">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/vindaloo.webp"
+            alt="Spicy vindaloo curry with potatoes and chillies">
+          <div class="dish-info">
+            <h3>Vindaloo</h3>
+            <p class="dish-desc">Spicy and tangy curry with potatoes and chillies.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$14.99</span>
+              <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+              <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Vindaloo to cart"
+            data-name="Vindaloo" data-price="14.99">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/makhani-1-of-2.avif"
+            alt="Creamy butter chicken makhani in a rich tomato and cashew sauce">
+          <div class="dish-info">
+            <h3>Makhani (Butter Chicken)</h3>
+            <p class="dish-desc">Slightly sweet creamy dish with butter, tomatoes, cashews, and garam masala.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$15.99</span>
+              <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Makhani Butter Chicken to cart"
+            data-name="Makhani (Butter Chicken)" data-price="15.99">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/Indian-Curry-Chicken-2-500x500.avif"
+            alt="Traditional Indian curry with cumin and turmeric spices">
+          <div class="dish-info">
+            <h3>Indian Curry</h3>
+            <p class="dish-desc">Classic blend with cumin, turmeric, and warm spices.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$14.99</span>
+              <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+              <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Indian Curry to cart"
+            data-name="Indian Curry" data-price="14.99">Add to Cart</button>
+        </div>
+      </section>
+
+      <!-- ========== VEGETARIAN ENTREES ========== -->
+      <section class="cat-section" id="cat-vegetarian" aria-labelledby="heading-vegetarian">
+        <h2 id="heading-vegetarian">Vegetarian Entrees</h2>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/aloo-gobi.avif"
+            alt="Aloo gobi with cauliflower and potato in Punjabi spices">
+          <div class="dish-info">
+            <h3>Aloo Gobi</h3>
+            <p class="dish-desc">Cauliflower and potatoes with Punjabi spices.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$13.99</span>
+              <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+              <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
+              <span class="diet-badge badge-v" aria-label="Vegan">V</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Aloo Gobi to cart"
+            data-name="Aloo Gobi" data-price="13.99">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/image1.avif"
+            alt="Chana masala chickpea curry in onion-tomato gravy">
+          <div class="dish-info">
+            <h3>Chana Masala</h3>
+            <p class="dish-desc">Chickpeas spiced in an onion-tomato gravy with coriander.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$13.99</span>
+              <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+              <span class="diet-badge badge-v" aria-label="Vegan">V</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Chana Masala to cart"
+            data-name="Chana Masala" data-price="13.99">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/daal-makhani.avif"
+            alt="Creamy black lentil daal makhani slow-cooked to perfection">
+          <div class="dish-info">
+            <h3>Daal Makhani</h3>
+            <p class="dish-desc">Creamy black lentil, slow-smoked in the tandoori oven.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$14.99</span>
+              <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Daal Makhani to cart"
+            data-name="Daal Makhani" data-price="14.99">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/mataar-paneer.avif"
+            alt="Mataar paneer with peas and farmer's cheese in creamy curry">
+          <div class="dish-info">
+            <h3>Mataar Paneer</h3>
+            <p class="dish-desc">Peas and farmer's cheese in a creamy curry sauce.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$14.99</span>
+              <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Mataar Paneer to cart"
+            data-name="Mataar Paneer" data-price="14.99">Add to Cart</button>
+        </div>
+      </section>
+
+      <!-- ========== TANDOORI BREADS ========== -->
+      <section class="cat-section" id="cat-breads" aria-labelledby="heading-breads">
+        <h2 id="heading-breads">Tandoori Breads</h2>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/garlic-cheese-naan.avif"
+            alt="Garlic cheese naan stuffed with garlic, cheese, and cilantro">
+          <div class="dish-info">
+            <h3>Garlic Cheese Naan</h3>
+            <p class="dish-desc">Naan stuffed with garlic, cheese, and cilantro.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$3.99</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Garlic Cheese Naan to cart"
+            data-name="Garlic Cheese Naan" data-price="3.99">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2022/08/garlic-nizzile-compressed.avif"
+            alt="Garlic naan bread with a golden toasted surface">
+          <div class="dish-info">
+            <h3>Garlic Naan</h3>
+            <p class="dish-desc">Naan bread baked with fresh garlic in the tandoori oven.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$3.50</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Garlic Naan to cart"
+            data-name="Garlic Naan" data-price="3.50">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/07/APC_0551-hdr-e1566167415440-scaled.avif"
+            alt="Whole wheat roti flatbread baked in a tandoori oven">
+          <div class="dish-info">
+            <h3>Roti</h3>
+            <p class="dish-desc">Whole wheat flatbread baked in the tandoori oven.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$2.99</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Roti to cart"
+            data-name="Roti" data-price="2.99">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/garlic-cheese-naan.avif"
+            alt="Plain naan bread with a soft pillowy texture">
+          <div class="dish-info">
+            <h3>Naan</h3>
+            <p class="dish-desc">Classic leavened flatbread baked in the tandoori oven.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$2.50</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Naan to cart"
+            data-name="Naan" data-price="2.50">Add to Cart</button>
+        </div>
+      </section>
+
+      <!-- ========== HIMALAYAN ENTREES ========== -->
+      <section class="cat-section" id="cat-himalayan" aria-labelledby="heading-himalayan">
+        <h2 id="heading-himalayan">Himalayan Entrees</h2>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/Momos-Friday.avif"
+            alt="Steamed Himalayan momos dumplings on a plate">
+          <div class="dish-info">
+            <h3>Momos</h3>
+            <p class="dish-desc">Steamed Himalayan dumplings with your choice of filling.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$13.99</span>
+              <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Momos to cart"
+            data-name="Momos" data-price="13.99">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/ckn-chowmein2.avif"
+            alt="Stir-fried chow mein noodles with vegetables">
+          <div class="dish-info">
+            <h3>Chow Mein</h3>
+            <p class="dish-desc">Stir-fried noodles with vegetables and your choice of protein.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$13.99</span>
+              <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Chow Mein to cart"
+            data-name="Chow Mein" data-price="13.99">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2020/07/chilli-bud-scaled.avif"
+            alt="Himalayan chilli chicken glazed with spicy peppers">
+          <div class="dish-info">
+            <h3>Himalayan Chilli Chicken</h3>
+            <p class="dish-desc">Spicy chilli chicken tossed with peppers and onions.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$15.99</span>
+              <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+              <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Himalayan Chilli Chicken to cart"
+            data-name="Himalayan Chilli Chicken" data-price="15.99">Add to Cart</button>
+        </div>
+      </section>
+
+      <!-- ========== KEBABS ========== -->
+      <section class="cat-section" id="cat-kebabs" aria-labelledby="heading-kebabs">
+        <h2 id="heading-kebabs">Kebabs</h2>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/kbob.avif"
+            alt="Tandoori Kitchen kebab skewers grilled in a clay oven on a bed of vegetables and rice">
+          <div class="dish-info">
+            <h3>Tandoori Kitchen Kebabs</h3>
+            <p class="dish-desc">Marinated in turmeric, garlic, and ginger house seasoning, grilled and smoked in a traditional tandoori clay oven; served on a bell pepper and zucchini bed with rice.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$15.99</span>
+              <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Tandoori Kitchen Kebabs to cart"
+            data-name="Tandoori Kitchen Kebabs" data-price="15.99">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/07/cd9d4d98-e5ed-40f4-9288-530e337302a7.avif"
+            alt="Tandoori chicken marinated in yogurt and spices, roasted in the clay oven">
+          <div class="dish-info">
+            <h3>Tandoori Chicken</h3>
+            <p class="dish-desc">Half chicken marinated in yogurt and spices, roasted in the tandoori oven.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$14.99</span>
+              <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Tandoori Chicken to cart"
+            data-name="Tandoori Chicken" data-price="14.99">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/kbob2.avif"
+            alt="Honey tikka kebab skewers with a sweet glaze on grilled chicken">
+          <div class="dish-info">
+            <h3>Honey Tikka Kebabs</h3>
+            <p class="dish-desc">Boneless chicken skewers glazed with honey, garlic, and ginger.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$15.99</span>
+              <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Honey Tikka Kebabs to cart"
+            data-name="Honey Tikka Kebabs" data-price="15.99">Add to Cart</button>
+        </div>
+      </section>
+
+      <!-- ========== BIRYANI ========== -->
+      <section class="cat-section" id="cat-biryani" aria-labelledby="heading-biryani">
+        <h2 id="heading-biryani">Biryani</h2>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/biryani.avif"
+            alt="Fragrant chicken biryani rice layered with spices and saffron">
+          <div class="dish-info">
+            <h3>Chicken Biryani</h3>
+            <p class="dish-desc">Fragrant basmati rice layered with spices, saffron, and tender chicken.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$14.99</span>
+              <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+              <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Chicken Biryani to cart"
+            data-name="Chicken Biryani" data-price="14.99">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/biryani.avif"
+            alt="Vegetable biryani with mixed vegetables and aromatic basmati rice">
+          <div class="dish-info">
+            <h3>Vegetable Biryani</h3>
+            <p class="dish-desc">Fragrant basmati rice layered with spices, saffron, and seasonal vegetables.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$14.99</span>
+              <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+              <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
+              <span class="diet-badge badge-v" aria-label="Vegan">V</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Vegetable Biryani to cart"
+            data-name="Vegetable Biryani" data-price="14.99">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/biryani.avif"
+            alt="Lamb biryani with tender lamb pieces and fragrant basmati rice">
+          <div class="dish-info">
+            <h3>Lamb Biryani</h3>
+            <p class="dish-desc">Fragrant basmati rice layered with spices, saffron, and slow-cooked lamb.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$14.99</span>
+              <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+              <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Lamb Biryani to cart"
+            data-name="Lamb Biryani" data-price="14.99">Add to Cart</button>
+        </div>
+      </section>
+
+      <!-- ========== SOUPS & SALADS ========== -->
+      <section class="cat-section" id="cat-soups" aria-labelledby="heading-soups">
+        <h2 id="heading-soups">Soups &amp; Salads</h2>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/caesar-salad-cheesy-6-min.avif"
+            alt="Tandoori chicken caesar salad with romaine and parmesan">
+          <div class="dish-info">
+            <h3>Tandoori Chicken Caesar Salad</h3>
+            <p class="dish-desc">Romaine lettuce with tandoori chicken, parmesan, and caesar dressing.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$10.00</span>
+              <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Tandoori Chicken Caesar Salad to cart"
+            data-name="Tandoori Chicken Caesar Salad" data-price="10.00">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2020/09/Webp.net-resizeimage-150x150.avif"
+            alt="Bowl of warm daal soup made with lentils and spices">
+          <div class="dish-info">
+            <h3>Daal Soup</h3>
+            <p class="dish-desc">Warm lentil soup spiced with cumin and turmeric.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$5.00</span>
+              <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+              <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
+              <span class="diet-badge badge-v" aria-label="Vegan">V</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Daal Soup to cart"
+            data-name="Daal Soup" data-price="5.00">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2020/09/Webp.net-resizeimage-150x150.avif"
+            alt="Fresh green salad with mixed greens and house dressing">
+          <div class="dish-info">
+            <h3>Green Salad</h3>
+            <p class="dish-desc">Fresh mixed greens with house vinaigrette.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$6.00</span>
+              <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+              <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
+              <span class="diet-badge badge-v" aria-label="Vegan">V</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Green Salad to cart"
+            data-name="Green Salad" data-price="6.00">Add to Cart</button>
+        </div>
+      </section>
+
+      <!-- ========== SIDES ========== -->
+      <section class="cat-section" id="cat-sides" aria-labelledby="heading-sides">
+        <h2 id="heading-sides">Sides</h2>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2020/09/Webp.net-resizeimage-150x150.avif"
+            alt="Steamed basmati rice in a serving bowl">
+          <div class="dish-info">
+            <h3>Basmati Rice</h3>
+            <p class="dish-desc">Steamed aromatic long-grain basmati rice.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$2.50</span>
+              <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+              <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
+              <span class="diet-badge badge-v" aria-label="Vegan">V</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Basmati Rice to cart"
+            data-name="Basmati Rice" data-price="2.50">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2020/09/Webp.net-resizeimage-150x150.avif"
+            alt="Small bowl of cooling raita yogurt with cucumber">
+          <div class="dish-info">
+            <h3>Raita</h3>
+            <p class="dish-desc">Cooling yogurt with cucumber, cumin, and fresh herbs.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$2.99</span>
+              <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Raita to cart"
+            data-name="Raita" data-price="2.99">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2020/09/Webp.net-resizeimage-150x150.avif"
+            alt="Small dish of sweet mango chutney">
+          <div class="dish-info">
+            <h3>Mango Chutney</h3>
+            <p class="dish-desc">Sweet and tangy mango chutney condiment.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$2.99</span>
+              <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+              <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
+              <span class="diet-badge badge-v" aria-label="Vegan">V</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Mango Chutney to cart"
+            data-name="Mango Chutney" data-price="2.99">Add to Cart</button>
+        </div>
+      </section>
+
+      <!-- ========== DESSERTS ========== -->
+      <section class="cat-section" id="cat-desserts" aria-labelledby="heading-desserts">
+        <h2 id="heading-desserts">Desserts</h2>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/gulab-jamon-2.avif"
+            alt="Golden gulab jamun dessert balls soaked in rose-scented syrup">
+          <div class="dish-info">
+            <h3>Gulab Jamun</h3>
+            <p class="dish-desc">Deep-fried milk dumplings soaked in rose-scented sugar syrup.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$5.00</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Gulab Jamun to cart"
+            data-name="Gulab Jamun" data-price="5.00">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/kheer.avif"
+            alt="Bowl of creamy kheer rice pudding garnished with nuts">
+          <div class="dish-info">
+            <h3>Kheer</h3>
+            <p class="dish-desc">Traditional Indian rice pudding with cardamom and pistachios.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$5.00</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Kheer to cart"
+            data-name="Kheer" data-price="5.00">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2020/09/Webp.net-resizeimage-150x150.avif"
+            alt="Keshari ras malai cheese patties in sweetened cream">
+          <div class="dish-info">
+            <h3>Keshari Ras Malai</h3>
+            <p class="dish-desc">Soft cheese patties in sweetened, cardamom-infused cream.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$6.00</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Keshari Ras Malai to cart"
+            data-name="Keshari Ras Malai" data-price="6.00">Add to Cart</button>
+        </div>
+      </section>
+
+      <!-- ========== DRINKS ========== -->
+      <section class="cat-section" id="cat-drinks" aria-labelledby="heading-drinks">
+        <h2 id="heading-drinks">Drinks</h2>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/10/05861841-809E-4162-81D1-5FEE27227913-scaled-jpeg.avif"
+            alt="Tall glass of mango lassi yogurt smoothie">
+          <div class="dish-info">
+            <h3>Mango Lassi</h3>
+            <p class="dish-desc">Creamy yogurt smoothie blended with sweet mango.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$4.00</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Mango Lassi to cart"
+            data-name="Mango Lassi" data-price="4.00">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/10/chai-bud.avif"
+            alt="Cup of hot masala chai tea with spices">
+          <div class="dish-info">
+            <h3>Chai</h3>
+            <p class="dish-desc">Traditional masala chai brewed with ginger, cardamom, and cinnamon.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$4.00</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Chai to cart"
+            data-name="Chai" data-price="4.00">Add to Cart</button>
+        </div>
+
+        <div class="dish-card">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2020/09/Webp.net-resizeimage-150x150.avif"
+            alt="Glass of iced chai with ice cubes and milk">
+          <div class="dish-info">
+            <h3>Iced Chai</h3>
+            <p class="dish-desc">Chilled masala chai served over ice.</p>
+            <div class="dish-meta">
+              <span class="dish-price">$4.00</span>
+            </div>
+          </div>
+          <button type="button" class="add-btn" aria-label="Add Iced Chai to cart"
+            data-name="Iced Chai" data-price="4.00">Add to Cart</button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- === CART SIDEBAR (desktop) === -->
+    <aside class="cart-sidebar" aria-label="Shopping cart">
+      <h2 id="cart-heading">Your Order</h2>
+      <div id="cart-live" aria-live="polite" aria-atomic="false">
+        <div id="cart-items">
+          <p class="cart-empty" id="cart-empty-msg">Your cart is empty.</p>
+        </div>
+      </div>
+      <div id="cart-summary" style="display:none;">
+        <div class="cart-total">
+          <span>Total</span>
+          <span id="cart-total-price">$0.00</span>
+        </div>
+        <button type="button" class="cart-checkout-btn" aria-label="Proceed to checkout">Checkout</button>
+      </div>
+    </aside>
+
+  </div>
+  <!-- /.menu-layout -->
+
+  <!-- ======= MOBILE CART TOGGLE ======= -->
+  <button type="button" class="mobile-cart-toggle" id="mobile-cart-btn"
+    aria-label="View cart, 0 items">
+    Cart <span class="cart-badge" id="mobile-cart-count">0</span>
+  </button>
+
+  <!-- ======= MOBILE CART OVERLAY ======= -->
+  <div class="cart-overlay" id="cart-overlay" role="dialog" aria-label="Shopping cart" aria-modal="true">
+    <div class="cart-panel">
+      <button type="button" class="close-cart" aria-label="Close cart">&times;</button>
+      <h2>Your Order</h2>
+      <div aria-live="polite" aria-atomic="false">
+        <div id="mobile-cart-items">
+          <p class="cart-empty">Your cart is empty.</p>
+        </div>
+      </div>
+      <div id="mobile-cart-summary" style="display:none;">
+        <div class="cart-total">
+          <span>Total</span>
+          <span id="mobile-cart-total">$0.00</span>
+        </div>
+        <button type="button" class="cart-checkout-btn" aria-label="Proceed to checkout">Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= SCREEN READER ANNOUNCEMENT ======= -->
+  <div id="sr-announce" class="sr-only" aria-live="assertive" role="status"></div>
+
+  <!-- ======= FOOTER ======= -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="mb-1">ATLS 4519 / CSCI 4830 &mdash; Web Accessibility &mdash; Extra Credit</p>
+      <p class="mb-0">
+        <a href="index.html">View Accessibility Components</a> &bull;
+        Data sourced from <a href="https://tandoorikitchenco.com/">tandoorikitchenco.com</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- ======= JAVASCRIPT ======= -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9HpGe/27GNcFp0gaOFr096jCIFeSSp+eEo9bJGd"
+    crossorigin="anonymous"></script>
+
+  <script>
+    (function () {
+      'use strict';
+
+      // ---- Cart state ----
+      var cart = [];
+
+      // ---- DOM refs ----
+      var cartItemsEl = document.getElementById('cart-items');
+      var cartEmptyMsg = document.getElementById('cart-empty-msg');
+      var cartSummary = document.getElementById('cart-summary');
+      var cartTotalPrice = document.getElementById('cart-total-price');
+      var mobileCartItems = document.getElementById('mobile-cart-items');
+      var mobileCartSummary = document.getElementById('mobile-cart-summary');
+      var mobileCartTotal = document.getElementById('mobile-cart-total');
+      var mobileCartCount = document.getElementById('mobile-cart-count');
+      var mobileCartBtn = document.getElementById('mobile-cart-btn');
+      var cartOverlay = document.getElementById('cart-overlay');
+      var srAnnounce = document.getElementById('sr-announce');
+
+      // ---- Add to Cart ----
+      document.querySelectorAll('.add-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var name = this.getAttribute('data-name');
+          var price = parseFloat(this.getAttribute('data-price'));
+          addToCart(name, price);
+        });
+      });
+
+      function addToCart(name, price) {
+        var existing = cart.find(function (item) { return item.name === name; });
+        if (existing) {
+          existing.qty += 1;
+        } else {
+          cart.push({ name: name, price: price, qty: 1 });
+        }
+        renderCart();
+        announce(name + ' added to cart.');
+      }
+
+      function removeFromCart(name) {
+        cart = cart.filter(function (item) { return item.name !== name; });
+        renderCart();
+        announce(name + ' removed from cart.');
+      }
+
+      function getTotal() {
+        return cart.reduce(function (sum, item) { return sum + item.price * item.qty; }, 0);
+      }
+
+      function getItemCount() {
+        return cart.reduce(function (sum, item) { return sum + item.qty; }, 0);
+      }
+
+      function renderCart() {
+        var html = '';
+        cart.forEach(function (item) {
+          html += '<div class="cart-item">' +
+            '<span class="cart-item-name">' + escapeHtml(item.name) + '</span>' +
+            '<span class="cart-item-qty">x' + item.qty + '</span>' +
+            '<span class="cart-item-price">$' + (item.price * item.qty).toFixed(2) + '</span>' +
+            '<button type="button" class="cart-remove-btn" aria-label="Remove ' + escapeAttr(item.name) + ' from cart" data-remove="' + escapeAttr(item.name) + '">&times;</button>' +
+            '</div>';
+        });
+
+        if (cart.length === 0) {
+          cartItemsEl.innerHTML = '<p class="cart-empty">Your cart is empty.</p>';
+          mobileCartItems.innerHTML = '<p class="cart-empty">Your cart is empty.</p>';
+          cartSummary.style.display = 'none';
+          mobileCartSummary.style.display = 'none';
+        } else {
+          cartItemsEl.innerHTML = html;
+          mobileCartItems.innerHTML = html;
+          cartSummary.style.display = 'block';
+          mobileCartSummary.style.display = 'block';
+          var total = '$' + getTotal().toFixed(2);
+          cartTotalPrice.textContent = total;
+          mobileCartTotal.textContent = total;
+        }
+
+        var count = getItemCount();
+        mobileCartCount.textContent = count;
+        mobileCartBtn.setAttribute('aria-label', 'View cart, ' + count + ' item' + (count !== 1 ? 's' : ''));
+
+        // Rebind remove buttons
+        document.querySelectorAll('.cart-remove-btn').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            removeFromCart(this.getAttribute('data-remove'));
+          });
+        });
+      }
+
+      function announce(msg) {
+        srAnnounce.textContent = '';
+        requestAnimationFrame(function () {
+          srAnnounce.textContent = msg;
+        });
+      }
+
+      function escapeHtml(str) {
+        var div = document.createElement('div');
+        div.appendChild(document.createTextNode(str));
+        return div.innerHTML;
+      }
+
+      function escapeAttr(str) {
+        return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+
+      // ---- Category tab navigation ----
+      function activateTab(catId, tabEl) {
+        // Update desktop tabs
+        document.querySelectorAll('.cat-sidebar .cat-tab').forEach(function (t) {
+          t.setAttribute('aria-selected', 'false');
+        });
+        var desktopTab = document.querySelector('.cat-sidebar .cat-tab[data-cat="' + catId + '"]');
+        if (desktopTab) desktopTab.setAttribute('aria-selected', 'true');
+
+        // Update mobile pills
+        document.querySelectorAll('.mobile-cat-bar .cat-pill').forEach(function (t) {
+          t.setAttribute('aria-selected', 'false');
+        });
+        var mobileTab = document.querySelector('.mobile-cat-bar .cat-pill[data-cat="' + catId + '"]');
+        if (mobileTab) mobileTab.setAttribute('aria-selected', 'true');
+
+        // Scroll to section
+        var section = document.getElementById('cat-' + catId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          section.querySelector('h2').focus({ preventScroll: true });
+        }
+      }
+
+      document.querySelectorAll('.cat-tab, .cat-pill').forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          activateTab(this.getAttribute('data-cat'), this);
+        });
+      });
+
+      // Arrow key navigation for tablists
+      document.querySelectorAll('[role="tablist"]').forEach(function (tablist) {
+        tablist.addEventListener('keydown', function (e) {
+          var tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
+          var index = tabs.indexOf(document.activeElement);
+          if (index === -1) return;
+
+          var next;
+          if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+            next = (index + 1) % tabs.length;
+            e.preventDefault();
+          } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+            next = (index - 1 + tabs.length) % tabs.length;
+            e.preventDefault();
+          } else if (e.key === 'Home') {
+            next = 0;
+            e.preventDefault();
+          } else if (e.key === 'End') {
+            next = tabs.length - 1;
+            e.preventDefault();
+          }
+
+          if (next !== undefined) {
+            tabs[next].focus();
+            tabs[next].click();
+          }
+        });
+      });
+
+      // ---- Scroll spy: update active tab on scroll ----
+      var sections = document.querySelectorAll('.cat-section');
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var id = entry.target.id.replace('cat-', '');
+            document.querySelectorAll('.cat-sidebar .cat-tab').forEach(function (t) {
+              t.setAttribute('aria-selected', String(t.getAttribute('data-cat') === id));
+            });
+            document.querySelectorAll('.mobile-cat-bar .cat-pill').forEach(function (t) {
+              t.setAttribute('aria-selected', String(t.getAttribute('data-cat') === id));
+            });
+          }
+        });
+      }, { rootMargin: '-20% 0px -60% 0px', threshold: 0 });
+
+      sections.forEach(function (s) { observer.observe(s); });
+
+      // ---- Mobile cart overlay ----
+      mobileCartBtn.addEventListener('click', function () {
+        cartOverlay.classList.add('open');
+        cartOverlay.querySelector('.close-cart').focus();
+      });
+
+      cartOverlay.querySelector('.close-cart').addEventListener('click', function () {
+        cartOverlay.classList.remove('open');
+        mobileCartBtn.focus();
+      });
+
+      cartOverlay.addEventListener('click', function (e) {
+        if (e.target === cartOverlay) {
+          cartOverlay.classList.remove('open');
+          mobileCartBtn.focus();
+        }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && cartOverlay.classList.contains('open')) {
+          cartOverlay.classList.remove('open');
+          mobileCartBtn.focus();
+        }
+      });
+
+      // ---- Menu search ----
+      var searchInput = document.getElementById('menu-search-input');
+      searchInput.addEventListener('input', function () {
+        var query = this.value.toLowerCase().trim();
+        document.querySelectorAll('.dish-card').forEach(function (card) {
+          var name = card.querySelector('h3').textContent.toLowerCase();
+          var desc = card.querySelector('.dish-desc').textContent.toLowerCase();
+          card.style.display = (name.indexOf(query) !== -1 || desc.indexOf(query) !== -1) ? '' : 'none';
+        });
+
+        // Hide empty category sections
+        document.querySelectorAll('.cat-section').forEach(function (section) {
+          var visible = section.querySelectorAll('.dish-card:not([style*="display: none"])');
+          section.style.display = visible.length === 0 && query !== '' ? 'none' : '';
+        });
+      });
+
+    })();
+  </script>
+
+</body>
+
+</html>
