@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="ATLS 4519 / CSCI 4830 Final Project: Six corrected accessibility components from Tandoori Kitchen restaurant website.">
+  <meta name="author" content="Fernando Picoral">
+
+  <title>Accessibility Fixes — Tandoori Kitchen | ATLS 4519 / CSCI 4830 Final Project</title>
+
+  <!-- Bootstrap 4 CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+  <style>
+    /* ---- Skip Link ---- */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 0;
+      background: #0d6efd;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      z-index: 9999;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 0 0 4px 0;
+    }
+
+    .skip-link:focus {
+      top: 0;
+      color: #fff;
+    }
+
+    /* ---- Global focus-visible ---- */
+    *:focus-visible {
+      outline: 2px solid #0d6efd;
+      outline-offset: 2px;
+    }
+
+    /* ---- Sticky TOC ---- */
+    .toc-nav {
+      position: sticky;
+      top: 56px;
+      z-index: 1020;
+      background: #f8f9fa;
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    .toc-nav .nav-link {
+      padding: 0.5rem 0.75rem;
+      color: #495057;
+      font-size: 0.875rem;
+      white-space: nowrap;
+    }
+
+    .toc-nav .nav-link:hover,
+    .toc-nav .nav-link:focus {
+      color: #0d6efd;
+    }
+
+    /* ---- Issue / Fix cards ---- */
+    .issue-fix-card {
+      background: #f8f9fa;
+      border-left: 4px solid #6c757d;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .issue-fix-card .label-issue {
+      color: #dc3545;
+      font-weight: 700;
+    }
+
+    .issue-fix-card .label-fix {
+      color: #198754;
+      font-weight: 700;
+    }
+
+    /* ---- Section spacing ---- */
+    .demo-section {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    .demo-section:last-child {
+      border-bottom: none;
+    }
+
+    /* ---- Section 2: Product cards ---- */
+    .food-card img {
+      height: 220px;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    /* ---- Section 3: Focus demo ---- */
+    .focus-demo-nav .nav-link {
+      color: #333;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      padding: 0.5rem 1rem;
+    }
+
+    .focus-demo-nav .nav-link:focus-visible {
+      outline: 2px solid #0d6efd;
+      outline-offset: 2px;
+    }
+
+    .focus-demo-nav .nav-link.active {
+      background: #c1272d;
+      color: #fff;
+    }
+
+    .category-tabs .btn {
+      margin: 0.25rem;
+    }
+
+    .category-tabs .btn:focus-visible {
+      outline: 2px solid #0d6efd;
+      outline-offset: 2px;
+    }
+
+    .focus-demo-card .btn:focus-visible {
+      outline: 2px solid #0d6efd;
+      outline-offset: 2px;
+    }
+
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #333;
+      color: #fff;
+      text-decoration: none;
+      font-size: 1rem;
+      margin: 0 0.25rem;
+    }
+
+    .social-icon:hover,
+    .social-icon:focus-visible {
+      background: #c1272d;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .social-icon:focus-visible {
+      outline: 2px solid #0d6efd;
+      outline-offset: 2px;
+    }
+
+    /* ---- Section 4: Cart buttons ---- */
+    .cart-btn {
+      background: #c1272d;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1.25rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .cart-btn:hover {
+      background: #a11f25;
+      color: #fff;
+    }
+
+    .cart-btn:focus-visible {
+      outline: 2px solid #0d6efd;
+      outline-offset: 2px;
+    }
+
+    /* ---- Section 5: Dietary badges ---- */
+    .badge-gf {
+      background: #198754;
+      color: #fff;
+    }
+
+    .badge-df {
+      background: #0d6efd;
+      color: #fff;
+    }
+
+    .badge-v {
+      background: #6f42c1;
+      color: #fff;
+    }
+
+    .diet-badge {
+      display: inline-block;
+      padding: 0.2em 0.55em;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 3px;
+      margin-right: 0.25rem;
+    }
+
+    /* ---- Section 5: Legend ---- */
+    .legend-box {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      padding: 0.75rem 1rem;
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      border-radius: 4px;
+      margin-bottom: 1.5rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.9rem;
+    }
+
+    /* ---- Section 6: Form ---- */
+    .form-section label {
+      font-weight: 600;
+    }
+
+    /* ---- Footer ---- */
+    footer {
+      background: #1a1a1a;
+    }
+
+    /* ---- Tab hint ---- */
+    .tab-hint {
+      background: #e9ecef;
+      border-radius: 4px;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+
+    .tab-hint kbd {
+      background: #333;
+      color: #fff;
+      padding: 0.15em 0.5em;
+      border-radius: 3px;
+      font-size: 0.85em;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Skip to main content -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ====== HEADER / PRIMARY NAV ====== -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" aria-label="Primary navigation">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img src="https://tandoorikitchenco.com/wp-content/uploads/2020/09/Webp.net-resizeimage-150x150.avif"
+            alt="Tandoori Kitchen logo" width="30" height="30" class="d-inline-block align-top rounded-circle mr-2">
+          Tandoori Kitchen &mdash; A11y Fixes
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#primaryNav"
+          aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="primaryNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href="#section-headings">Headings</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section-alt">Alt Text</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section-focus">Focus</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section-aria">ARIA</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section-diet">Dietary</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section-forms">Forms</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ====== STICKY TABLE OF CONTENTS ====== -->
+  <nav class="toc-nav" aria-label="Table of contents">
+    <div class="container">
+      <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="#section-headings">1. Heading Structure</a></li>
+        <li class="nav-item"><a class="nav-link" href="#section-alt">2. Image Alt Text</a></li>
+        <li class="nav-item"><a class="nav-link" href="#section-focus">3. Focus Indicators</a></li>
+        <li class="nav-item"><a class="nav-link" href="#section-aria">4. ARIA Labels</a></li>
+        <li class="nav-item"><a class="nav-link" href="#section-diet">5. Dietary Legend</a></li>
+        <li class="nav-item"><a class="nav-link" href="#section-forms">6. Form Labels</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ====== MAIN CONTENT ====== -->
+  <main id="main-content" style="margin-top: 100px;">
+    <div class="container">
+
+      <div class="my-4 text-center">
+        <h1>Tandoori Kitchen &mdash; Accessibility Fixes</h1>
+        <p class="lead">ATLS 4519 / CSCI 4830 Final Project &mdash; Six corrected components from
+          <a href="https://tandoorikitchenco.com/">tandoorikitchenco.com</a>
+        </p>
+      </div>
+
+      <!-- ============================================================
+           SECTION 1 — HEADING STRUCTURE
+           ============================================================ -->
+      <section id="section-headings" class="demo-section" aria-labelledby="heading-title">
+        <h2 id="heading-title">1. Heading Structure</h2>
+
+        <div class="issue-fix-card">
+          <p><span class="label-issue">Original Issue:</span> The site uses two <code>&lt;h1&gt;</code> elements
+            ("Home" and "ORDER ONLINE"), places <code>&lt;h4&gt;</code> tags before <code>&lt;h1&gt;</code> in the DOM,
+            and renders all dish names as <code>&lt;h2&gt;</code> with no category grouping &mdash; making the heading
+            hierarchy flat and unusable for screen reader navigation.</p>
+          <p><span class="label-fix">Fix Applied:</span> A single <code>&lt;h1&gt;</code> for the page, category names
+            as <code>&lt;h2&gt;</code>, and individual dish names as <code>&lt;h3&gt;</code>, creating a clear
+            hierarchy.</p>
+        </div>
+
+        <!-- Corrected heading hierarchy demo -->
+        <div class="border rounded p-4 bg-white">
+          <h3>Appetizers</h3>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Vegetable Samosa</h4>
+                  <p class="card-text">Pastry stuffed with potatoes, peas, and spices (2 pcs). <strong>$5.00</strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Pakora</h4>
+                  <p class="card-text">Mixed vegetable fritters served with mint and tamarind chutney.
+                    <strong>$6.00</strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Tandoori Chicken Wings</h4>
+                  <p class="card-text">Marinated chicken wings fire cooked in a tandoori oven, served spicy or regular.
+                    <strong>$10.00</strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h3>Curries</h3>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Tikka Masala</h4>
+                  <p class="card-text">Tomato and cream sauce with tandoori-smoked meats. <strong>$14.99</strong></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Korma</h4>
+                  <p class="card-text">Mild gravy with nuts, cream, and delicate spice. <strong>$14.99</strong></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Vindaloo</h4>
+                  <p class="card-text">Spicy and tangy curry with potatoes and chillies. <strong>$14.99</strong></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h3>Tandoori Breads</h3>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Garlic Cheese Naan</h4>
+                  <p class="card-text">Naan stuffed with garlic, cheese, and cilantro. <strong>$3.99</strong></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Roti</h4>
+                  <p class="card-text">Whole wheat flatbread baked in the tandoori oven. <strong>$2.99</strong></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           SECTION 2 — IMAGE ALT TEXT
+           ============================================================ -->
+      <section id="section-alt" class="demo-section" aria-labelledby="alt-title">
+        <h2 id="alt-title">2. Image Alt Text</h2>
+
+        <div class="issue-fix-card">
+          <p><span class="label-issue">Original Issue:</span> The logo alt text reads "Webp.net-resizeimage" (a file
+            conversion artifact). Food images use meaningless alt text such as "dsaag", "papad", and "Placeholder". The
+            same garlic cheese naan photo is reused for six different naan varieties.</p>
+          <p><span class="label-fix">Fix Applied:</span> The logo receives <code>alt="Tandoori Kitchen logo"</code>.
+            Each food image gets a unique, descriptive alt attribute that conveys the dish's appearance.</p>
+        </div>
+
+        <div class="row">
+          <!-- Logo -->
+          <div class="col-md-4 mb-4">
+            <div class="card food-card h-100">
+              <img
+                src="https://tandoorikitchenco.com/wp-content/uploads/2020/09/Webp.net-resizeimage-150x150.avif"
+                alt="Tandoori Kitchen logo" class="card-img-top p-4 bg-light"
+                style="height:220px; object-fit:contain;">
+              <div class="card-body">
+                <h3 class="h5 card-title">Logo</h3>
+                <p class="card-text"><code>alt="Tandoori Kitchen logo"</code></p>
+                <p class="text-muted small">Original: <code>alt="Webp.net-resizeimage"</code></p>
+              </div>
+            </div>
+          </div>
+          <!-- Tikka Masala -->
+          <div class="col-md-4 mb-4">
+            <div class="card food-card h-100">
+              <img
+                src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/tikka_masala_tk_web.avif"
+                alt="Bowl of chicken tikka masala curry in a creamy tomato sauce" class="card-img-top">
+              <div class="card-body">
+                <h3 class="h5 card-title">Tikka Masala</h3>
+                <p class="card-text"><code>alt="Bowl of chicken tikka masala curry in a creamy tomato sauce"</code></p>
+                <p class="text-muted small">Original: <code>alt="dsaag"</code></p>
+              </div>
+            </div>
+          </div>
+          <!-- Vegetable Samosa -->
+          <div class="col-md-4 mb-4">
+            <div class="card food-card h-100">
+              <img
+                src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/Gemini_Generated_Image_mhhqynmhhqynmhhq.webp"
+                alt="Two crispy vegetable samosas filled with spiced potatoes and peas" class="card-img-top">
+              <div class="card-body">
+                <h3 class="h5 card-title">Vegetable Samosa</h3>
+                <p class="card-text"><code>alt="Two crispy vegetable samosas filled with spiced potatoes and
+                    peas"</code></p>
+                <p class="text-muted small">Original: <code>alt="Placeholder"</code></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           SECTION 3 — KEYBOARD FOCUS INDICATORS
+           ============================================================ -->
+      <section id="section-focus" class="demo-section" aria-labelledby="focus-title">
+        <h2 id="focus-title">3. Keyboard Focus Indicators</h2>
+
+        <div class="issue-fix-card">
+          <p><span class="label-issue">Original Issue:</span> The site only shows focus styles on a few
+            WooCommerce "Add" / "Select" buttons. Navigation links, category tabs, social media icons, the hamburger
+            menu button, and search inputs have no visible focus indicator &mdash; making keyboard-only navigation
+            impossible to track.</p>
+          <p><span class="label-fix">Fix Applied:</span> A global <code>:focus-visible</code> rule adds a 2 px
+            blue outline with a 2 px offset to every interactive element. Individual components below also receive
+            explicit focus styles.</p>
+        </div>
+
+        <div class="tab-hint">
+          Press <kbd>Tab</kbd> to move through the interactive elements below and verify the blue focus ring.
+        </div>
+
+        <!-- Demo nav bar -->
+        <nav class="navbar navbar-light bg-light rounded mb-3" aria-label="Demo restaurant navigation">
+          <a class="navbar-brand" href="#section-focus">Tandoori Kitchen</a>
+          <ul class="nav focus-demo-nav">
+            <li class="nav-item"><a class="nav-link active" href="#section-focus">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section-focus">Menu</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section-focus">Order Online</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section-focus">Catering</a></li>
+            <li class="nav-item"><a class="nav-link" href="#section-focus">Contact</a></li>
+          </ul>
+        </nav>
+
+        <!-- Category tabs -->
+        <div class="category-tabs mb-3">
+          <button type="button" class="btn btn-outline-secondary">All</button>
+          <button type="button" class="btn btn-outline-secondary">Appetizers</button>
+          <button type="button" class="btn btn-outline-secondary">Curries</button>
+          <button type="button" class="btn btn-outline-secondary">Tandoori Breads</button>
+          <button type="button" class="btn btn-outline-secondary">Biryani</button>
+          <button type="button" class="btn btn-outline-secondary">Desserts</button>
+        </div>
+
+        <!-- Product buttons -->
+        <div class="row mb-3">
+          <div class="col-md-4 mb-3">
+            <div class="card focus-demo-card">
+              <div class="card-body">
+                <h3 class="h5 card-title">Pakora</h3>
+                <p class="card-text">$6.00</p>
+                <button type="button" class="cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="card focus-demo-card">
+              <div class="card-body">
+                <h3 class="h5 card-title">Makhani (Butter)</h3>
+                <p class="card-text">$15.99</p>
+                <button type="button" class="cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="card focus-demo-card">
+              <div class="card-body">
+                <h3 class="h5 card-title">Garlic Naan</h3>
+                <p class="card-text">$3.50</p>
+                <button type="button" class="cart-btn">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social icons -->
+        <div class="mb-2">
+          <strong>Social links:</strong>
+          <a href="#section-focus" class="social-icon ml-2" aria-label="Facebook">F</a>
+          <a href="#section-focus" class="social-icon" aria-label="Instagram">I</a>
+          <a href="#section-focus" class="social-icon" aria-label="Yelp">Y</a>
+        </div>
+
+        <!-- Search input -->
+        <div class="mt-3" style="max-width:350px;">
+          <label for="focus-search" class="sr-only">Search menu</label>
+          <input id="focus-search" type="search" class="form-control" placeholder="Search menu...">
+        </div>
+      </section>
+
+      <!-- ============================================================
+           SECTION 4 — ARIA BUTTON LABELS
+           ============================================================ -->
+      <section id="section-aria" class="demo-section" aria-labelledby="aria-title">
+        <h2 id="aria-title">4. ARIA Button Labels</h2>
+
+        <div class="issue-fix-card">
+          <p><span class="label-issue">Original Issue:</span> The site repeats generic "Add" and "Select" buttons
+            60+ times with no surrounding context. A screen reader user hears "Add, button" repeatedly with no way
+            to distinguish which dish each button corresponds to.</p>
+          <p><span class="label-fix">Fix Applied:</span> Each button receives an
+            <code>aria-label="Add [Dish Name] to cart"</code> so screen readers announce the specific item. Visual
+            text remains "Add to Cart" for sighted users.
+          </p>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h3 class="h5 card-title">Vegetable Samosa</h3>
+                <p class="card-text">Pastry with potatoes, peas &amp; spices (2 pcs)</p>
+                <p><strong>$5.00</strong></p>
+                <button type="button" class="cart-btn" aria-label="Add Vegetable Samosa to cart">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h3 class="h5 card-title">Tikka Masala</h3>
+                <p class="card-text">Tomato &amp; cream with tandoori-smoked meats</p>
+                <p><strong>$14.99</strong></p>
+                <button type="button" class="cart-btn" aria-label="Add Tikka Masala to cart">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h3 class="h5 card-title">Chana Masala</h3>
+                <p class="card-text">Chickpeas spiced in an onion-tomato gravy</p>
+                <p><strong>$13.99</strong></p>
+                <button type="button" class="cart-btn" aria-label="Add Chana Masala to cart">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h3 class="h5 card-title">Garlic Cheese Naan</h3>
+                <p class="card-text">Naan stuffed with garlic, cheese &amp; cilantro</p>
+                <p><strong>$3.99</strong></p>
+                <button type="button" class="cart-btn" aria-label="Add Garlic Cheese Naan to cart">Add to
+                  Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-muted small">Inspect any button above &mdash; each carries a unique
+          <code>aria-label</code> attribute.
+        </p>
+      </section>
+
+      <!-- ============================================================
+           SECTION 5 — DIETARY ABBREVIATION LEGEND
+           ============================================================ -->
+      <section id="section-diet" class="demo-section" aria-labelledby="diet-title">
+        <h2 id="diet-title">5. Dietary Abbreviation Legend</h2>
+
+        <div class="issue-fix-card">
+          <p><span class="label-issue">Original Issue:</span> The site uses inconsistent notation &mdash; "gf",
+            "GF", "gluten free", "Gluten Free", and "GF - DF" appear interchangeably with no legend explaining what
+            the abbreviations mean.</p>
+          <p><span class="label-fix">Fix Applied:</span> A visible legend defines each abbreviation. Dish cards use
+            standardized badge-style tags with consistent spelling and <code>aria-label</code> attributes on each
+            abbreviation for screen readers.</p>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend-box" role="note" aria-label="Dietary abbreviation legend">
+          <div class="legend-item">
+            <span class="diet-badge badge-gf">GF</span> = Gluten Free
+          </div>
+          <div class="legend-item">
+            <span class="diet-badge badge-df">DF</span> = Dairy Free
+          </div>
+          <div class="legend-item">
+            <span class="diet-badge badge-v">V</span> = Vegan
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-lg-4 mb-3">
+            <div class="card h-100">
+              <div class="card-body">
+                <h3 class="h5 card-title">Aloo Gobi</h3>
+                <p class="card-text">Cauliflower and potatoes with Punjabi spices. <strong>$13.99</strong></p>
+                <div>
+                  <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+                  <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
+                  <span class="diet-badge badge-v" aria-label="Vegan">V</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 mb-3">
+            <div class="card h-100">
+              <div class="card-body">
+                <h3 class="h5 card-title">Korma</h3>
+                <p class="card-text">Mild gravy with nuts, cream, and delicate spice. <strong>$14.99</strong></p>
+                <div>
+                  <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 mb-3">
+            <div class="card h-100">
+              <div class="card-body">
+                <h3 class="h5 card-title">Daal Tadka</h3>
+                <p class="card-text">Yellow lentil with house glaze. <strong>$13.99</strong></p>
+                <div>
+                  <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+                  <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
+                  <span class="diet-badge badge-v" aria-label="Vegan">V</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 mb-3">
+            <div class="card h-100">
+              <div class="card-body">
+                <h3 class="h5 card-title">Makhani (Butter)</h3>
+                <p class="card-text">Creamy dish with butter, tomatoes, and cashews. <strong>$15.99</strong></p>
+                <div>
+                  <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 mb-3">
+            <div class="card h-100">
+              <div class="card-body">
+                <h3 class="h5 card-title">Chana Masala</h3>
+                <p class="card-text">Chickpeas spiced in an onion-tomato gravy. <strong>$13.99</strong></p>
+                <div>
+                  <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
+                  <span class="diet-badge badge-v" aria-label="Vegan">V</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           SECTION 6 — FORM LABELS
+           ============================================================ -->
+      <section id="section-forms" class="demo-section form-section" aria-labelledby="forms-title">
+        <h2 id="forms-title">6. Form Labels</h2>
+
+        <div class="issue-fix-card">
+          <p><span class="label-issue">Original Issue:</span> The "Find locations near you" modal contains a zip
+            code input with no programmatic label association (missing <code>for</code>/<code>id</code> pairing).
+            The site also renders three redundant "Search for:" inputs, making the page confusing for assistive
+            technology users.</p>
+          <p><span class="label-fix">Fix Applied:</span> Every input is paired with a <code>&lt;label&gt;</code>
+            using matching <code>for</code> and <code>id</code> attributes. Redundant search fields are consolidated
+            into a single, clearly labeled input.</p>
+        </div>
+
+        <div class="row">
+          <!-- Location search form -->
+          <div class="col-md-6 mb-4">
+            <div class="card">
+              <div class="card-header"><strong>Find Locations Near You</strong></div>
+              <div class="card-body">
+                <form onsubmit="return false;">
+                  <div class="form-group">
+                    <label for="zip-code">Zip Code</label>
+                    <input type="text" id="zip-code" class="form-control" placeholder="e.g. 80026"
+                      autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}" maxlength="5"
+                      aria-describedby="zip-help">
+                    <small id="zip-help" class="form-text text-muted">Enter a 5-digit US zip code.</small>
+                  </div>
+                  <button type="submit" class="cart-btn">Find Location</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Site search form -->
+          <div class="col-md-6 mb-4">
+            <div class="card">
+              <div class="card-header"><strong>Search the Menu</strong></div>
+              <div class="card-body">
+                <form role="search" onsubmit="return false;">
+                  <div class="form-group">
+                    <label for="search">Search</label>
+                    <input type="search" id="search" class="form-control" placeholder="Search dishes, ingredients...">
+                  </div>
+                  <button type="submit" class="cart-btn">Search</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-muted small">Inspect each <code>&lt;label&gt;</code> &mdash; every <code>for</code> attribute
+          matches the corresponding input's <code>id</code>.</p>
+      </section>
+
+    </div>
+    <!-- /.container -->
+  </main>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="py-4 text-center text-white mt-5">
+    <div class="container">
+      <p class="mb-1">ATLS 4519 / CSCI 4830 &mdash; Web Accessibility &mdash; Final Project</p>
+      <p class="mb-0 small">Data sourced from
+        <a href="https://tandoorikitchenco.com/" class="text-light">tandoorikitchenco.com</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9HpGe/27GNcFp0gaOFr096jCIFeSSp+eEo9bJGd"
+    crossorigin="anonymous"></script>
+
+</body>
+
+</html>
