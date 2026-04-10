@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wireframe — Tandoori Kitchen Redesigned Home Page</title>
+  <style>
+    /* ===== RESET / BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #fff;
+      color: #333;
+      max-width: 1200px;
+      margin: 0 auto;
+      border: 1px solid #e0e0e0;
+    }
+
+    /* ===== ANNOTATION STYLE ===== */
+    .anno {
+      color: #2563eb;
+      font-size: 11px;
+      font-style: italic;
+      line-height: 1.3;
+    }
+    .anno-box {
+      border: 1.5px dashed #2563eb;
+      position: relative;
+    }
+    .anno-label {
+      position: absolute;
+      top: -14px;
+      left: 6px;
+      background: #fff;
+      padding: 0 4px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #2563eb;
+    }
+    .anno-inline {
+      display: inline-block;
+      color: #2563eb;
+      font-size: 10px;
+      font-style: italic;
+      margin-left: 6px;
+    }
+    .anno-arrow {
+      color: #2563eb;
+      font-size: 11px;
+    }
+
+    /* ===== PLACEHOLDER BOX ===== */
+    .placeholder {
+      background: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 13px;
+    }
+
+    /* ===== WIREFRAME BUTTON ===== */
+    .wf-btn {
+      display: inline-block;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+    }
+    .wf-btn-filled { background: #c1272d; color: #fff; border: none; }
+    .wf-btn-outline { background: none; color: #fff; border: 1.5px solid #fff; }
+    .wf-btn-gray { background: #e0e0e0; color: #333; border: 1px solid #999; }
+    .wf-btn-red { background: #c1272d; color: #fff; border: none; }
+
+    /* ===== BADGE ===== */
+    .wf-badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 9px;
+      font-weight: 700;
+      color: #fff;
+      margin-right: 2px;
+    }
+    .wf-badge-gf { background: #198754; }
+    .wf-badge-df { background: #0d6efd; }
+    .wf-badge-v { background: #6f42c1; }
+
+    /* ==========================================================
+       1. SKIP LINK
+       ========================================================== */
+    .wire-skip {
+      background: #f5f5f5;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 6px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .wire-skip .skip-box {
+      background: #e0e0e0;
+      border: 1px solid #999;
+      border-radius: 3px;
+      padding: 3px 12px;
+      font-size: 10px;
+      color: #333;
+    }
+
+    /* ==========================================================
+       2. TOP BAR
+       ========================================================== */
+    .wire-topbar {
+      background: #333;
+      color: #fff;
+      padding: 6px 40px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+    }
+
+    /* ==========================================================
+       3. HEADER / NAV
+       ========================================================== */
+    .wire-header {
+      background: #1a1a1a;
+      padding: 10px 30px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .wire-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #555;
+      border: 1px solid #999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .wire-nav {
+      display: flex;
+      gap: 6px;
+      flex: 1;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .wire-nav-link {
+      background: #333;
+      border: 1px solid #555;
+      border-radius: 3px;
+      padding: 5px 12px;
+      font-size: 10px;
+      color: #fff;
+    }
+    .wire-nav-link.active {
+      color: #d4a843;
+    }
+    .wire-nav-link.focus-demo {
+      outline: 2px dashed #2563eb;
+      outline-offset: 2px;
+      position: relative;
+    }
+    .wire-header-icons {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .wire-icon-box {
+      width: 28px;
+      height: 24px;
+      background: #333;
+      border: 1px solid #555;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: #fff;
+    }
+
+    /* ==========================================================
+       4. HERO
+       ========================================================== */
+    .wire-hero {
+      position: relative;
+      background: #e0e0e0;
+      min-height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wire-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(51, 51, 51, 0.75);
+    }
+    .wire-hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 30px;
+    }
+    .wire-hero-content h2 {
+      font-size: 28px;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .wire-hero-content p {
+      font-size: 14px;
+      color: #ddd;
+      margin-bottom: 20px;
+    }
+    .wire-hero-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .wire-hero-anno {
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      text-align: right;
+    }
+
+    /* ==========================================================
+       5. DIETARY LEGEND
+       ========================================================== */
+    .wire-legend {
+      background: #fff3cd;
+      border-bottom: 1px solid #ffc107;
+      padding: 8px 30px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 11px;
+    }
+    .wire-legend strong { margin-right: 4px; }
+
+    /* ==========================================================
+       6. MENU SECTION
+       ========================================================== */
+    .wire-menu {
+      background: #f5f5f5;
+      display: flex;
+      min-height: 700px;
+    }
+
+    /* Category sidebar */
+    .wire-cat-sidebar {
+      width: 200px;
+      min-width: 200px;
+      background: #fff;
+      border-right: 1px solid #e0e0e0;
+      padding: 16px 0;
+    }
+    .wire-cat-tab {
+      display: block;
+      width: calc(100% - 24px);
+      margin: 0 12px 6px;
+      padding: 7px 16px;
+      border-radius: 16px;
+      font-size: 11px;
+      text-align: center;
+      border: 1px solid #e0e0e0;
+      background: #fff;
+      color: #333;
+    }
+    .wire-cat-tab.active {
+      background: #c1272d;
+      color: #fff;
+      border-color: #c1272d;
+    }
+
+    /* Menu content */
+    .wire-menu-content {
+      flex: 1;
+      padding: 20px 24px;
+    }
+    .wire-menu-content h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #333;
+      border-bottom: 2px solid #c1272d;
+      padding-bottom: 4px;
+      margin-bottom: 16px;
+    }
+
+    /* Product card grid */
+    .wire-card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .wire-card {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .wire-card-img {
+      height: 130px;
+    }
+    .wire-card-body {
+      padding: 10px 12px 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .wire-card-body h4 {
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .wire-card-body .desc {
+      font-size: 10px;
+      color: #999;
+      margin-bottom: 6px;
+      flex: 1;
+    }
+    .wire-card-body .badges {
+      margin-bottom: 6px;
+    }
+    .wire-card-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 12px 10px;
+      margin-top: auto;
+    }
+    .wire-card-bottom .price {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    /* ==========================================================
+       7. SOCIAL PROOF
+       ========================================================== */
+    .wire-social-proof {
+      background: #fff;
+      padding: 30px 80px;
+      text-align: center;
+    }
+    .wire-social-proof h3 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .wire-embed-placeholder {
+      height: 160px;
+      border-radius: 6px;
+      border: 1px solid #e0e0e0;
+    }
+
+    /* ==========================================================
+       8. FOOTER
+       ========================================================== */
+    .wire-footer {
+      background: #1a1a1a;
+      color: #999;
+      padding: 30px 40px;
+      text-align: center;
+    }
+    .wire-footer-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #555;
+      border: 1px solid #999;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+    .wire-footer-nav {
+      font-size: 11px;
+      color: #999;
+      margin-bottom: 20px;
+    }
+    .wire-footer-cols {
+      display: flex;
+      justify-content: center;
+      gap: 200px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .wire-footer-cols h5 {
+      font-size: 12px;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .wire-footer-cols ul {
+      list-style: none;
+      font-size: 10px;
+      line-height: 1.8;
+    }
+    .wire-footer hr {
+      border: none;
+      border-top: 1px solid #333;
+      margin: 16px 0;
+    }
+    .wire-footer .address {
+      font-size: 10px;
+      margin-bottom: 6px;
+    }
+    .wire-footer .copy {
+      font-size: 9px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    .wire-payment {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+    }
+    .wire-payment span {
+      background: #333;
+      border: 1px solid #555;
+      border-radius: 3px;
+      padding: 3px 8px;
+      font-size: 7px;
+      color: #fff;
+    }
+
+    /* ==========================================================
+       BOTTOM ANNOTATION SUMMARY
+       ========================================================== */
+    .wire-summary {
+      border: 1px solid #2563eb;
+      border-radius: 8px;
+      margin: 24px 20px;
+      padding: 20px 30px;
+      background: #f5f5f5;
+    }
+    .wire-summary h3 {
+      color: #2563eb;
+      font-size: 14px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .wire-summary ul {
+      list-style: none;
+      padding: 0;
+    }
+    .wire-summary li {
+      color: #2563eb;
+      font-size: 11px;
+      margin-bottom: 4px;
+      padding-left: 12px;
+      position: relative;
+    }
+    .wire-summary li::before {
+      content: "\2022";
+      position: absolute;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======= 1. SKIP LINK ======= -->
+  <div class="wire-skip">
+    <span class="skip-box">[Skip to Content]</span>
+    <span class="anno">visually hidden until focused</span>
+  </div>
+
+  <!-- ======= 2. TOP BAR ======= -->
+  <div class="wire-topbar">
+    <span>303-665-8530</span>
+    <span>Lunch Buffet Now Open &rarr;</span>
+  </div>
+
+  <!-- ======= 3. HEADER / NAV ======= -->
+  <div class="anno-box" style="position: relative;">
+    <span class="anno-label">&lt;header&gt;</span>
+    <div class="wire-header">
+      <div class="wire-logo">LOGO</div>
+      <div style="flex-shrink: 0;">
+        <span class="anno" style="font-size: 8px;">alt="Tandoori Kitchen logo"</span>
+      </div>
+
+      <div class="anno-box" style="flex: 1; padding: 4px; border-radius: 4px;">
+        <span class="anno-label" style="top: -10px; font-size: 8px;">&lt;nav aria-label="Primary"&gt;</span>
+        <div class="wire-nav">
+          <span class="wire-nav-link active">Home</span>
+          <span class="wire-nav-link">Menu</span>
+          <span class="wire-nav-link focus-demo">Order Online
+            <span class="anno-inline" style="position: absolute; top: -16px; right: -120px; white-space: nowrap;">&larr; :focus-visible indicator</span>
+          </span>
+          <span class="wire-nav-link">Catering</span>
+          <span class="wire-nav-link">About</span>
+          <span class="wire-nav-link">Contact</span>
+          <span class="wire-nav-link">Blog</span>
+        </div>
+      </div>
+
+      <div class="wire-header-icons">
+        <div class="wire-icon-box">&#x1F50D;</div>
+        <div class="wire-icon-box">Cart</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= 4. HERO ======= -->
+  <div class="wire-hero">
+    <div class="wire-hero-overlay"></div>
+    <div class="wire-hero-content">
+      <h2>ORDER ONLINE</h2>
+      <span class="anno-inline" style="margin-left: 0; margin-bottom: 8px; display: block;">&lt;h1&gt; &mdash; single page heading</span>
+      <p>Indian &amp; Himalayan Cuisine &bull; Lafayette, CO</p>
+      <div class="wire-hero-buttons">
+        <span class="wf-btn wf-btn-filled">Order Pickup</span>
+        <span class="wf-btn wf-btn-outline">Order Delivery</span>
+        <span class="wf-btn wf-btn-outline">Lunch Buffet</span>
+      </div>
+    </div>
+    <div class="wire-hero-anno">
+      <span class="anno">&larr; Dark overlay for<br>4.5:1 contrast<br>(WCAG 1.4.3)</span>
+    </div>
+  </div>
+
+  <!-- ======= 5. DIETARY LEGEND ======= -->
+  <div class="wire-legend">
+    <strong>Dietary Key:</strong>
+    <span><span class="wf-badge wf-badge-gf">GF</span> = Gluten Free</span>
+    <span><span class="wf-badge wf-badge-df">DF</span> = Dairy Free</span>
+    <span><span class="wf-badge wf-badge-v">V</span> = Vegan</span>
+    <span class="anno" style="margin-left: auto;">Legend added &mdash; consistent abbreviations (WCAG 3.1.4)</span>
+  </div>
+
+  <!-- ======= 6. MENU SECTION ======= -->
+  <div class="anno-box" style="position: relative;">
+    <span class="anno-label">&lt;main&gt;</span>
+    <div class="wire-menu">
+
+      <!-- Category sidebar -->
+      <div class="wire-cat-sidebar">
+        <div style="padding: 0 12px 10px;">
+          <span class="anno" style="font-size: 9px;">role="tablist"<br>aria-label="Menu categories"</span>
+        </div>
+        <div class="wire-cat-tab active" style="position: relative;">
+          Appetizers
+          <span class="anno-inline" style="position: absolute; right: -6px; top: -14px; font-size: 8px; white-space: nowrap;">role="tab" aria-selected="true"</span>
+        </div>
+        <div class="wire-cat-tab">Curries</div>
+        <div class="wire-cat-tab">Vegetarian</div>
+        <div class="wire-cat-tab">Tandoori Breads</div>
+        <div class="wire-cat-tab">Himalayan</div>
+        <div class="wire-cat-tab">Kebabs</div>
+        <div class="wire-cat-tab">Biryani</div>
+        <div class="wire-cat-tab">Soups &amp; Salads</div>
+        <div class="wire-cat-tab">Desserts</div>
+        <div class="wire-cat-tab">Drinks</div>
+      </div>
+
+      <!-- Menu content -->
+      <div class="wire-menu-content">
+        <h3>Appetizers <span class="anno-inline">&lt;h2&gt;</span></h3>
+
+        <!-- Card row 1 -->
+        <div class="wire-card-grid">
+
+          <!-- Card 1 -->
+          <div class="wire-card">
+            <div class="placeholder wire-card-img">[IMAGE]</div>
+            <div class="wire-card-body">
+              <span class="anno" style="font-size: 8px; margin-bottom: 4px;">alt="Two crispy vegetable samosas with spiced potatoes"</span>
+              <h4>Vegetable Samosa <span class="anno-inline">&lt;h3&gt;</span></h4>
+              <p class="desc">Pastry stuffed with potatoes, peas, and spices (2 pcs).</p>
+              <div class="badges">
+                <span class="wf-badge wf-badge-v">V</span>
+              </div>
+            </div>
+            <div class="wire-card-bottom">
+              <span class="price">$5.00</span>
+              <span class="wf-btn wf-btn-red" style="padding: 5px 14px; font-size: 10px; position: relative;">
+                Add
+                <span class="anno" style="position: absolute; top: -20px; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: 8px;">aria-label="Add Vegetable Samosa to cart"</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="wire-card">
+            <div class="placeholder wire-card-img">[IMAGE]</div>
+            <div class="wire-card-body">
+              <span class="anno" style="font-size: 8px; margin-bottom: 4px;">alt="Golden fried pakora vegetable fritters"</span>
+              <h4>Pakora</h4>
+              <p class="desc">Mixed fritters with mint &amp; tamarind chutney.</p>
+              <div class="badges">
+                <span class="wf-badge wf-badge-gf">GF</span>
+                <span class="wf-badge wf-badge-df">DF</span>
+              </div>
+            </div>
+            <div class="wire-card-bottom">
+              <span class="price">$6.00</span>
+              <span class="wf-btn wf-btn-gray" style="padding: 5px 14px; font-size: 10px;">Select</span>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="wire-card">
+            <div class="placeholder wire-card-img">[IMAGE]</div>
+            <div class="wire-card-body">
+              <span class="anno" style="font-size: 8px; margin-bottom: 4px;">alt="Tandoori chicken wings charred from a clay oven"</span>
+              <h4>Tandoori Chicken Wings</h4>
+              <p class="desc">Marinated wings fire cooked in tandoori oven, spicy or regular.</p>
+              <div class="badges">
+                <span class="wf-badge wf-badge-gf">GF</span>
+              </div>
+            </div>
+            <div class="wire-card-bottom">
+              <span class="price">$10.00</span>
+              <span class="wf-btn wf-btn-red" style="padding: 5px 14px; font-size: 10px;">Add</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card row 2 -->
+        <div class="wire-card-grid">
+
+          <div class="wire-card">
+            <div class="placeholder wire-card-img">[IMAGE]</div>
+            <div class="wire-card-body">
+              <h4>Samosa Chat</h4>
+              <p class="desc">Samosas topped with chickpeas, tamarind, and yogurt.</p>
+            </div>
+            <div class="wire-card-bottom">
+              <span class="price">$8.00</span>
+              <span class="wf-btn wf-btn-red" style="padding: 5px 14px; font-size: 10px;">Add</span>
+            </div>
+          </div>
+
+          <div class="wire-card">
+            <div class="placeholder wire-card-img">[IMAGE]</div>
+            <div class="wire-card-body">
+              <h4>Cauli Manchurian</h4>
+              <p class="desc">Cauliflower in manchurian zesty tomato sauce.</p>
+              <div class="badges">
+                <span class="wf-badge wf-badge-gf">GF</span>
+                <span class="wf-badge wf-badge-df">DF</span>
+              </div>
+            </div>
+            <div class="wire-card-bottom">
+              <span class="price">$8.00</span>
+              <span class="wf-btn wf-btn-red" style="padding: 5px 14px; font-size: 10px;">Add</span>
+            </div>
+          </div>
+
+          <div class="wire-card">
+            <div class="placeholder wire-card-img">[IMAGE]</div>
+            <div class="wire-card-body">
+              <h4>Garlic Shrimp</h4>
+              <p class="desc">Marinated shrimp with garlic &amp; pepper glaze.</p>
+              <div class="badges">
+                <span class="wf-badge wf-badge-gf">GF</span>
+                <span class="wf-badge wf-badge-df">DF</span>
+              </div>
+            </div>
+            <div class="wire-card-bottom">
+              <span class="price">$10.00</span>
+              <span class="wf-btn wf-btn-red" style="padding: 5px 14px; font-size: 10px;">Add</span>
+            </div>
+          </div>
+        </div>
+
+        <p style="text-align: center; color: #999; font-size: 14px; padding: 16px 0;">. . . more categories below . . .</p>
+
+        <!-- Cart sidebar annotation -->
+        <div style="text-align: right; padding-top: 8px;">
+          <span class="anno">&lt;aside aria-label="Cart"&gt; with aria-live="polite" &rarr;</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======= 7. SOCIAL PROOF ======= -->
+  <div class="wire-social-proof">
+    <h3>Why Tandoori Kitchen? <span class="anno-inline">&lt;h2&gt;</span></h3>
+    <div class="placeholder wire-embed-placeholder">[EMBEDDED CONTENT / REVIEWS]</div>
+  </div>
+
+  <!-- ======= 8. FOOTER ======= -->
+  <div class="anno-box" style="position: relative;">
+    <span class="anno-label">&lt;footer&gt;</span>
+    <div class="wire-footer">
+      <div class="wire-footer-logo">LOGO</div>
+
+      <div class="wire-footer-nav">
+        Home &nbsp;&nbsp; Menu &nbsp;&nbsp; Order Online &nbsp;&nbsp; Catering &nbsp;&nbsp; About &nbsp;&nbsp; Contact &nbsp;&nbsp; Blog
+      </div>
+
+      <div class="wire-footer-cols">
+        <div>
+          <h5>HELP</h5>
+          <ul>
+            <li>My Account</li>
+            <li>Customer Help</li>
+            <li>Contact Us</li>
+            <li>FAQ</li>
+            <li>Gift Card Balance</li>
+          </ul>
+        </div>
+        <div>
+          <h5>FOLLOW</h5>
+          <ul>
+            <li>Facebook</li>
+            <li>Instagram</li>
+            <li>Twitter</li>
+            <li>Youtube</li>
+            <li>Yelp</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr>
+
+      <p class="address">199 W. South Boulder Rd., Lafayette, CO 80026 &bull; (303) 665-8530</p>
+      <p class="copy">&copy; Tandoori Kitchen 2026 &bull; Built with love by Tandoori Kitchen</p>
+
+      <div class="wire-payment">
+        <span>VISA</span>
+        <span>MC</span>
+        <span>DISC</span>
+        <span>AMEX</span>
+        <span>UPI</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= ACCESSIBILITY FIXES SUMMARY ======= -->
+  <div class="wire-summary">
+    <h3>ACCESSIBILITY FIXES APPLIED</h3>
+    <ul>
+      <li>Single &lt;h1&gt; &rarr; &lt;h2&gt; per category &rarr; &lt;h3&gt; per dish (proper hierarchy)</li>
+      <li>Descriptive alt text on all images (no more "Webp.net-resizeimage" or "dsaag")</li>
+      <li>:focus-visible with 2px blue outline + 2px offset on ALL interactive elements</li>
+      <li>aria-label="Add [Dish Name] to cart" on every Add button</li>
+      <li>Dietary legend + standardized GF/DF/V badges (no more inconsistent "gf"/"Gluten Free")</li>
+      <li>Proper &lt;label for&gt; on all form inputs</li>
+      <li>Semantic landmarks: &lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;aside&gt;, &lt;footer&gt; + skip link</li>
+    </ul>
+  </div>
+
+</body>
+</html>
