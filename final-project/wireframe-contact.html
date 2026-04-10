@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wireframe — Tandoori Kitchen Redesigned Contact Page</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #fff;
+      color: #333;
+      max-width: 1200px;
+      margin: 0 auto;
+      border: 1px solid #e0e0e0;
+    }
+
+    /* ===== ANNOTATION STYLE ===== */
+    .anno {
+      color: #2563eb;
+      font-size: 11px;
+      font-style: italic;
+      line-height: 1.3;
+    }
+    .anno-box {
+      border: 1.5px dashed #2563eb;
+      position: relative;
+    }
+    .anno-label {
+      position: absolute;
+      top: -14px;
+      left: 6px;
+      background: #fff;
+      padding: 0 4px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #2563eb;
+    }
+    .anno-inline {
+      display: inline-block;
+      color: #2563eb;
+      font-size: 10px;
+      font-style: italic;
+      margin-left: 6px;
+    }
+
+    /* ===== PLACEHOLDER ===== */
+    .placeholder {
+      background: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 13px;
+    }
+
+    /* ==========================================================
+       1. SKIP LINK
+       ========================================================== */
+    .wire-skip {
+      background: #f5f5f5;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 6px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .wire-skip .skip-box {
+      background: #e0e0e0;
+      border: 1px solid #999;
+      border-radius: 3px;
+      padding: 3px 12px;
+      font-size: 10px;
+      color: #333;
+    }
+
+    /* ==========================================================
+       2. TOP BAR
+       ========================================================== */
+    .wire-topbar {
+      background: #333;
+      color: #fff;
+      padding: 6px 40px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+    }
+
+    /* ==========================================================
+       3. HEADER / NAV
+       ========================================================== */
+    .wire-header {
+      background: #1a1a1a;
+      padding: 10px 30px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .wire-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #555;
+      border: 1px solid #999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .wire-nav {
+      display: flex;
+      gap: 6px;
+      flex: 1;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .wire-nav-link {
+      background: #333;
+      border: 1px solid #555;
+      border-radius: 3px;
+      padding: 5px 12px;
+      font-size: 10px;
+      color: #fff;
+    }
+    .wire-nav-link.active { color: #d4a843; }
+    .wire-nav-link.focus-demo {
+      outline: 2px dashed #2563eb;
+      outline-offset: 2px;
+      position: relative;
+    }
+    .wire-header-icons { display: flex; gap: 6px; flex-shrink: 0; }
+    .wire-icon-box {
+      width: 28px;
+      height: 24px;
+      background: #333;
+      border: 1px solid #555;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: #fff;
+    }
+
+    /* ==========================================================
+       4. BREADCRUMB
+       ========================================================== */
+    .wire-breadcrumb {
+      background: #f5f5f5;
+      padding: 10px 30px;
+      font-size: 11px;
+      color: #666;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .wire-breadcrumb .crumb-link { color: #333; }
+    .wire-breadcrumb .sep { margin: 0 8px; color: #999; }
+
+    /* ==========================================================
+       5. PAGE HEADING
+       ========================================================== */
+    .wire-page-heading {
+      padding: 30px 40px 8px;
+      text-align: center;
+    }
+    .wire-page-heading h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: #333;
+      display: inline-block;
+    }
+    .wire-intro {
+      text-align: center;
+      padding: 0 80px 30px;
+      color: #999;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* ==========================================================
+       6. INFO CARDS ROW
+       ========================================================== */
+    .wire-info-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      padding: 0 30px 10px;
+    }
+    .wire-info-card {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px 14px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .wire-icon-circle {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      border: 1px dashed #999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      color: #666;
+    }
+    .wire-info-card h2 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #333;
+    }
+    .wire-info-card p {
+      font-size: 11px;
+      color: #666;
+      line-height: 1.4;
+    }
+
+    .wire-info-anno {
+      padding: 8px 30px 20px;
+      text-align: center;
+    }
+
+    /* ==========================================================
+       7. SOCIAL LINKS ROW
+       ========================================================== */
+    .wire-social {
+      padding: 20px 40px;
+      text-align: center;
+      background: #f5f5f5;
+      border-top: 1px solid #e0e0e0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .wire-social h2 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: #333;
+    }
+    .wire-social-links {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .wire-social-link {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 8px 20px;
+      font-size: 12px;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .wire-social-link .icon-sq {
+      width: 16px;
+      height: 16px;
+      background: #e0e0e0;
+      border: 1px dashed #999;
+      border-radius: 2px;
+    }
+
+    /* ==========================================================
+       8. CONTACT FORM
+       ========================================================== */
+    .wire-form-section {
+      padding: 30px 40px;
+    }
+    .wire-form-section h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #333;
+    }
+    .wire-form {
+      background: #f5f5f5;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 24px;
+      margin-top: 16px;
+    }
+    .wire-form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .wire-form-field {
+      margin-bottom: 14px;
+    }
+    .wire-form-field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 4px;
+    }
+    .wire-form-field label .required { color: #c1272d; }
+    .wire-form-field .wire-input,
+    .wire-form-field .wire-textarea,
+    .wire-form-field .wire-select {
+      background: #fff;
+      border: 1px solid #999;
+      border-radius: 4px;
+      height: 32px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      font-size: 10px;
+      color: #999;
+    }
+    .wire-form-field .wire-textarea {
+      height: 90px;
+      align-items: flex-start;
+      padding: 8px 10px;
+    }
+    .wire-form-field .wire-select::after {
+      content: "\25BC";
+      margin-left: auto;
+      color: #999;
+      font-size: 8px;
+    }
+    .wire-submit {
+      display: inline-block;
+      background: #c1272d;
+      color: #fff;
+      border-radius: 20px;
+      padding: 8px 28px;
+      font-size: 12px;
+      font-weight: 600;
+      position: relative;
+      outline: 2px dashed #2563eb;
+      outline-offset: 3px;
+    }
+    .wire-form-anno {
+      margin-top: 14px;
+      padding: 10px 14px;
+      background: #fff;
+      border-left: 3px solid #2563eb;
+      border-radius: 3px;
+    }
+    .wire-form-anno p {
+      color: #2563eb;
+      font-size: 10px;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* ==========================================================
+       9. MAP
+       ========================================================== */
+    .wire-map-section {
+      padding: 20px 40px 40px;
+    }
+    .wire-map-section h2 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #333;
+    }
+    .wire-map {
+      height: 280px;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+    }
+
+    /* ==========================================================
+       10. FOOTER
+       ========================================================== */
+    .wire-footer {
+      background: #1a1a1a;
+      color: #999;
+      padding: 30px 40px;
+      text-align: center;
+    }
+    .wire-footer-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #555;
+      border: 1px solid #999;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+    .wire-footer-nav {
+      font-size: 11px;
+      color: #999;
+      margin-bottom: 20px;
+    }
+    .wire-footer-cols {
+      display: flex;
+      justify-content: center;
+      gap: 200px;
+      margin-bottom: 20px;
+    }
+    .wire-footer-cols h5 {
+      font-size: 12px;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .wire-footer-cols ul { list-style: none; font-size: 10px; line-height: 1.8; }
+    .wire-footer hr { border: none; border-top: 1px solid #333; margin: 16px 0; }
+    .wire-footer .address { font-size: 10px; margin-bottom: 6px; }
+    .wire-footer .copy { font-size: 9px; color: #666; }
+
+    /* ==========================================================
+       SUMMARY
+       ========================================================== */
+    .wire-summary {
+      border: 1px solid #2563eb;
+      border-radius: 8px;
+      margin: 24px 20px;
+      padding: 20px 30px;
+      background: #f5f5f5;
+    }
+    .wire-summary h3 {
+      color: #2563eb;
+      font-size: 14px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .wire-summary ul { list-style: none; padding: 0; }
+    .wire-summary li {
+      color: #2563eb;
+      font-size: 11px;
+      margin-bottom: 4px;
+      padding-left: 12px;
+      position: relative;
+    }
+    .wire-summary li::before {
+      content: "\2022";
+      position: absolute;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======= 1. SKIP LINK ======= -->
+  <div class="wire-skip">
+    <span class="skip-box">[Skip to Content]</span>
+    <span class="anno">visually hidden until focused</span>
+  </div>
+
+  <!-- ======= TOP BAR ======= -->
+  <div class="wire-topbar">
+    <span>303-665-8530</span>
+    <span>Lunch Buffet Now Open &rarr;</span>
+  </div>
+
+  <!-- ======= 2. HEADER / NAV ======= -->
+  <div class="anno-box" style="position: relative;">
+    <span class="anno-label">&lt;header&gt;</span>
+    <div class="wire-header">
+      <div class="wire-logo">LOGO</div>
+      <div style="flex-shrink: 0;">
+        <span class="anno" style="font-size: 8px;">alt="Tandoori Kitchen logo"</span>
+      </div>
+
+      <div class="anno-box" style="flex: 1; padding: 4px; border-radius: 4px;">
+        <span class="anno-label" style="top: -10px; font-size: 8px;">&lt;nav aria-label="Primary"&gt;</span>
+        <div class="wire-nav">
+          <span class="wire-nav-link">Home</span>
+          <span class="wire-nav-link">Menu</span>
+          <span class="wire-nav-link">Order Online</span>
+          <span class="wire-nav-link">Catering</span>
+          <span class="wire-nav-link">About</span>
+          <span class="wire-nav-link focus-demo active">
+            Contact
+            <span class="anno-inline" style="position: absolute; top: -16px; right: -120px; white-space: nowrap;">&larr; :focus-visible indicator</span>
+          </span>
+          <span class="wire-nav-link">Blog</span>
+        </div>
+      </div>
+
+      <div class="wire-header-icons">
+        <div class="wire-icon-box">&#x1F50D;</div>
+        <div class="wire-icon-box">Cart</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= 3. BREADCRUMB ======= -->
+  <nav class="wire-breadcrumb">
+    <span class="crumb-link">Home</span><span class="sep">&gt;</span><span>Contact Us</span>
+    <span class="anno-inline">&lt;nav aria-label="Breadcrumb"&gt;</span>
+  </nav>
+
+  <!-- ======= MAIN ======= -->
+  <div class="anno-box" style="position: relative;">
+    <span class="anno-label">&lt;main&gt;</span>
+
+    <!-- ======= 4. PAGE HEADING ======= -->
+    <div class="wire-page-heading">
+      <h1>Contact Us</h1>
+      <span class="anno-inline">&lt;h1&gt;</span>
+    </div>
+
+    <!-- ======= 5. INTRO TEXT ======= -->
+    <p class="wire-intro">
+      Have a question about our menu, catering, or an upcoming reservation?
+      Reach out &mdash; we'd love to hear from you.
+    </p>
+
+    <!-- ======= 6. INFO CARDS ROW ======= -->
+    <div class="wire-info-cards">
+
+      <div class="wire-info-card">
+        <div class="wire-icon-circle">[ICON]</div>
+        <h2>Phone</h2>
+        <p>(303) 665-8530</p>
+      </div>
+
+      <div class="wire-info-card">
+        <div class="wire-icon-circle">[ICON]</div>
+        <h2>Email</h2>
+        <p>info@tandoorikitchenco.com</p>
+      </div>
+
+      <div class="wire-info-card">
+        <div class="wire-icon-circle">[ICON]</div>
+        <h2>Address</h2>
+        <p>199 W. South Boulder Rd.<br>Lafayette, CO 80026</p>
+      </div>
+
+      <div class="wire-info-card">
+        <div class="wire-icon-circle">[ICON]</div>
+        <h2>Hours</h2>
+        <p>Daily 11 AM &ndash; 2:30 PM<br>&amp; 5 PM &ndash; 9:30 PM</p>
+      </div>
+
+    </div>
+
+    <div class="wire-info-anno">
+      <span class="anno">&lt;h2&gt; on each card heading &bull; SVG icons with aria-hidden="true" &bull; visible text label provides meaning (not the icon)</span>
+    </div>
+
+    <!-- ======= 7. SOCIAL LINKS ROW ======= -->
+    <div class="wire-social">
+      <h2>Follow Us <span class="anno-inline">&lt;h2&gt;</span></h2>
+      <div class="wire-social-links">
+        <span class="wire-social-link">
+          <span class="icon-sq"></span> Facebook
+        </span>
+        <span class="wire-social-link">
+          <span class="icon-sq"></span> Instagram
+        </span>
+        <span class="wire-social-link">
+          <span class="icon-sq"></span> Yelp
+        </span>
+      </div>
+      <p class="anno" style="margin-top: 12px;">
+        Links have descriptive text (not just icons) &bull; aria-label on each social link &bull; focus-visible outline
+      </p>
+    </div>
+
+    <!-- ======= 8. CONTACT FORM ======= -->
+    <section class="wire-form-section">
+      <h2>Send Us a Message <span class="anno-inline">&lt;h2&gt;</span></h2>
+      <p style="font-size: 11px; color: #999; margin-top: 4px;">
+        Fields marked with <span style="color:#c1272d;">*</span> are required.
+      </p>
+
+      <div class="wire-form">
+
+        <div class="wire-form-row">
+          <div class="wire-form-field">
+            <label>Name <span class="required">*</span></label>
+            <span class="anno-inline" style="margin-left: 0;">&lt;label for="name"&gt;</span>
+            <div class="wire-input">Your full name</div>
+          </div>
+
+          <div class="wire-form-field">
+            <label>Email <span class="required">*</span></label>
+            <span class="anno-inline" style="margin-left: 0;">&lt;label for="email"&gt;</span>
+            <div class="wire-input">you@example.com</div>
+          </div>
+        </div>
+
+        <div class="wire-form-row">
+          <div class="wire-form-field">
+            <label>Phone</label>
+            <span class="anno-inline" style="margin-left: 0;">&lt;label for="phone"&gt;</span>
+            <div class="wire-input">(303) 555-0123</div>
+          </div>
+
+          <div class="wire-form-field">
+            <label>Subject <span class="required">*</span></label>
+            <span class="anno-inline" style="margin-left: 0;">&lt;label for="subject"&gt;</span>
+            <div class="wire-select" style="display:flex;">Select a topic &#9662;</div>
+          </div>
+        </div>
+
+        <div class="wire-form-field">
+          <label>Message <span class="required">*</span></label>
+          <span class="anno-inline" style="margin-left: 0;">&lt;label for="message"&gt;</span>
+          <div class="wire-textarea">Your message here...</div>
+        </div>
+
+        <div style="text-align: right; padding-top: 8px;">
+          <span class="wire-submit">
+            Submit
+            <span class="anno" style="position: absolute; top: -22px; right: 0; white-space: nowrap;">aria-label="Submit contact form" + :focus-visible</span>
+          </span>
+        </div>
+
+        <div class="wire-form-anno">
+          <p>
+            &bull; Required fields marked with * and <code>aria-required="true"</code><br>
+            &bull; Error messages use <code>aria-live="assertive"</code> for immediate announcement<br>
+            &bull; Error state adds <code>aria-invalid="true"</code> and <code>aria-describedby</code> pointing to the error message<br>
+            &bull; Success state confirmed via live region so screen readers announce submission
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======= 9. EMBEDDED MAP ======= -->
+    <section class="wire-map-section">
+      <h2>Find Us <span class="anno-inline">&lt;h2&gt;</span></h2>
+      <div class="placeholder wire-map">[Google Maps Embed]</div>
+      <p class="anno" style="margin-top: 10px;">
+        &lt;iframe title="Tandoori Kitchen location map in Lafayette, Colorado"&gt; &bull; title attribute describes the map for screen readers
+      </p>
+    </section>
+
+  </div>
+  <!-- /main -->
+
+  <!-- ======= 10. FOOTER ======= -->
+  <div class="anno-box" style="position: relative;">
+    <span class="anno-label">&lt;footer&gt;</span>
+    <div class="wire-footer">
+      <div class="wire-footer-logo">LOGO</div>
+      <div class="wire-footer-nav">
+        Home &nbsp;&nbsp; Menu &nbsp;&nbsp; Order Online &nbsp;&nbsp; Catering &nbsp;&nbsp; About &nbsp;&nbsp; Contact &nbsp;&nbsp; Blog
+      </div>
+      <div class="wire-footer-cols">
+        <div>
+          <h5>HELP</h5>
+          <ul>
+            <li>My Account</li>
+            <li>Customer Help</li>
+            <li>Contact Us</li>
+            <li>FAQ</li>
+            <li>Gift Card Balance</li>
+          </ul>
+        </div>
+        <div>
+          <h5>FOLLOW</h5>
+          <ul>
+            <li>Facebook</li>
+            <li>Instagram</li>
+            <li>Twitter</li>
+            <li>Youtube</li>
+            <li>Yelp</li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+      <p class="address">199 W. South Boulder Rd., Lafayette, CO 80026 &bull; (303) 665-8530</p>
+      <p class="copy">&copy; Tandoori Kitchen 2026 &bull; Built with love by Tandoori Kitchen</p>
+    </div>
+  </div>
+
+  <!-- ======= ACCESSIBILITY FIXES SUMMARY ======= -->
+  <div class="wire-summary">
+    <h3>ACCESSIBILITY FIXES APPLIED &mdash; CONTACT PAGE</h3>
+    <ul>
+      <li>Single &lt;h1&gt; ("Contact Us") &rarr; &lt;h2&gt; for each info card and form section (proper hierarchy)</li>
+      <li>Breadcrumb navigation wrapped in &lt;nav aria-label="Breadcrumb"&gt;</li>
+      <li>Emoji/image icons replaced with SVG icons marked aria-hidden="true" &mdash; visible text labels provide meaning</li>
+      <li>All form inputs paired with &lt;label for="id"&gt; and matching id</li>
+      <li>Required fields marked with * AND aria-required="true"</li>
+      <li>Submit button has aria-label="Submit contact form"</li>
+      <li>Error messages announced via aria-live="assertive" + aria-invalid="true" on invalid fields</li>
+      <li>Google Maps iframe has title="Tandoori Kitchen location map" so screen readers can identify it</li>
+      <li>Social media links have descriptive text (not icon-only) + aria-label on each</li>
+      <li>:focus-visible outline on every link, button, and form field</li>
+      <li>Semantic landmarks: &lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;footer&gt; + skip link</li>
+    </ul>
+  </div>
+
+</body>
+</html>
