@@ -247,7 +247,6 @@
     .menu-content {
       flex: 1;
       padding: 1.5rem 2rem 3rem;
-      max-width: 900px;
     }
 
     .menu-content .cat-section {
@@ -264,17 +263,36 @@
     }
 
     /* ===========================
-       DISH CARD
+       DISH GRID (3-column)
+       =========================== */
+    .dish-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    @media (max-width: 1199px) {
+      .dish-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 767px) {
+      .dish-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===========================
+       DISH CARD (vertical)
        =========================== */
     .dish-card {
       display: flex;
-      align-items: flex-start;
-      gap: 1rem;
+      flex-direction: column;
       background: #fff;
       border: 1px solid #e9ecef;
       border-radius: 8px;
-      padding: 0.85rem;
-      margin-bottom: 0.75rem;
+      overflow: hidden;
       transition: box-shadow 0.15s;
     }
 
@@ -283,28 +301,29 @@
     }
 
     .dish-card img {
-      width: 90px;
-      height: 90px;
+      width: 100%;
+      height: 200px;
       object-fit: cover;
-      border-radius: 6px;
-      flex-shrink: 0;
     }
 
     .dish-info {
       flex: 1;
-      min-width: 0;
+      padding: 0.75rem 0.85rem 0;
+      display: flex;
+      flex-direction: column;
     }
 
     .dish-info h3 {
       font-size: 1rem;
       font-weight: 600;
-      margin: 0 0 0.2rem;
+      margin: 0 0 0.3rem;
     }
 
     .dish-info .dish-desc {
       font-size: 0.85rem;
       color: #555;
-      margin: 0 0 0.3rem;
+      margin: 0 0 0.5rem;
+      flex: 1;
     }
 
     .dish-info .dish-meta {
@@ -312,6 +331,7 @@
       align-items: center;
       gap: 0.5rem;
       flex-wrap: wrap;
+      margin-bottom: 0.5rem;
     }
 
     .dish-price {
@@ -320,19 +340,24 @@
       font-size: 0.95rem;
     }
 
+    .dish-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 0.85rem 0.75rem;
+      margin-top: auto;
+    }
+
     .add-btn {
       background: var(--tk-red);
       color: #fff;
       border: none;
-      padding: 0.35rem 0.9rem;
-      border-radius: 5px;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
       font-size: 0.85rem;
       font-weight: 600;
       cursor: pointer;
       white-space: nowrap;
-      margin-left: auto;
-      flex-shrink: 0;
-      align-self: center;
     }
 
     .add-btn:hover {
@@ -746,6 +771,8 @@
       <section class="cat-section" id="cat-appetizers" aria-labelledby="heading-appetizers">
         <h2 id="heading-appetizers">Appetizers</h2>
 
+
+        <div class="dish-grid">
         <div class="dish-card">
           <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/Gemini_Generated_Image_mhhqynmhhqynmhhq.webp"
             alt="Two crispy vegetable samosas filled with spiced potatoes and peas">
@@ -753,12 +780,14 @@
             <h3>Vegetable Samosa</h3>
             <p class="dish-desc">Pastry stuffed with potatoes, peas, and spices (2 pcs).</p>
             <div class="dish-meta">
-              <span class="dish-price">$5.00</span>
               <span class="diet-badge badge-v" aria-label="Vegan">V</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Vegetable Samosa to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$5.00</span>
+            <button type="button" class="add-btn" aria-label="Add Vegetable Samosa to cart"
             data-name="Vegetable Samosa" data-price="5.00">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -768,13 +797,15 @@
             <h3>Pakora</h3>
             <p class="dish-desc">Mixed vegetable fritters served with mint and tamarind chutney.</p>
             <div class="dish-meta">
-              <span class="dish-price">$6.00</span>
               <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
               <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Pakora to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$6.00</span>
+            <button type="button" class="add-btn" aria-label="Add Pakora to cart"
             data-name="Pakora" data-price="6.00">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -784,12 +815,14 @@
             <h3>Tandoori Chicken Wings</h3>
             <p class="dish-desc">Marinated chicken wings fire cooked in a tandoori oven, served spicy or regular.</p>
             <div class="dish-meta">
-              <span class="dish-price">$10.00</span>
               <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Tandoori Chicken Wings to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$10.00</span>
+            <button type="button" class="add-btn" aria-label="Add Tandoori Chicken Wings to cart"
             data-name="Tandoori Chicken Wings" data-price="10.00">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -798,12 +831,13 @@
           <div class="dish-info">
             <h3>Samosa Chat</h3>
             <p class="dish-desc">Samosas topped with chickpeas, tamarind, and yogurt sauce.</p>
-            <div class="dish-meta">
-              <span class="dish-price">$8.00</span>
-            </div>
-          </div>
-          <button type="button" class="add-btn" aria-label="Add Samosa Chat to cart"
+                      </div>
+          <div class="dish-bottom">
+            <span class="dish-price">$8.00</span>
+            <button type="button" class="add-btn" aria-label="Add Samosa Chat to cart"
             data-name="Samosa Chat" data-price="8.00">Add to Cart</button>
+          </div>
+        </div>
         </div>
       </section>
 
@@ -811,6 +845,8 @@
       <section class="cat-section" id="cat-curries" aria-labelledby="heading-curries">
         <h2 id="heading-curries">Curries</h2>
 
+
+        <div class="dish-grid">
         <div class="dish-card">
           <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/tikka_masala_tk_web.avif"
             alt="Bowl of chicken tikka masala in a creamy tomato sauce">
@@ -818,12 +854,14 @@
             <h3>Tikka Masala</h3>
             <p class="dish-desc">Tomato and cream sauce with tandoori-smoked meats.</p>
             <div class="dish-meta">
-              <span class="dish-price">$14.99</span>
               <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Tikka Masala to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$14.99</span>
+            <button type="button" class="add-btn" aria-label="Add Tikka Masala to cart"
             data-name="Tikka Masala" data-price="14.99">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -833,12 +871,14 @@
             <h3>Korma</h3>
             <p class="dish-desc">Mild gravy with nuts, cream, and delicate spice.</p>
             <div class="dish-meta">
-              <span class="dish-price">$14.99</span>
               <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Korma to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$14.99</span>
+            <button type="button" class="add-btn" aria-label="Add Korma to cart"
             data-name="Korma" data-price="14.99">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -848,13 +888,15 @@
             <h3>Vindaloo</h3>
             <p class="dish-desc">Spicy and tangy curry with potatoes and chillies.</p>
             <div class="dish-meta">
-              <span class="dish-price">$14.99</span>
               <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
               <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Vindaloo to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$14.99</span>
+            <button type="button" class="add-btn" aria-label="Add Vindaloo to cart"
             data-name="Vindaloo" data-price="14.99">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -864,12 +906,14 @@
             <h3>Makhani (Butter Chicken)</h3>
             <p class="dish-desc">Slightly sweet creamy dish with butter, tomatoes, cashews, and garam masala.</p>
             <div class="dish-meta">
-              <span class="dish-price">$15.99</span>
               <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Makhani Butter Chicken to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$15.99</span>
+            <button type="button" class="add-btn" aria-label="Add Makhani Butter Chicken to cart"
             data-name="Makhani (Butter Chicken)" data-price="15.99">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -879,13 +923,16 @@
             <h3>Indian Curry</h3>
             <p class="dish-desc">Classic blend with cumin, turmeric, and warm spices.</p>
             <div class="dish-meta">
-              <span class="dish-price">$14.99</span>
               <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
               <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Indian Curry to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$14.99</span>
+            <button type="button" class="add-btn" aria-label="Add Indian Curry to cart"
             data-name="Indian Curry" data-price="14.99">Add to Cart</button>
+          </div>
+        </div>
         </div>
       </section>
 
@@ -893,6 +940,8 @@
       <section class="cat-section" id="cat-vegetarian" aria-labelledby="heading-vegetarian">
         <h2 id="heading-vegetarian">Vegetarian Entrees</h2>
 
+
+        <div class="dish-grid">
         <div class="dish-card">
           <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/aloo-gobi.avif"
             alt="Aloo gobi with cauliflower and potato in Punjabi spices">
@@ -900,14 +949,16 @@
             <h3>Aloo Gobi</h3>
             <p class="dish-desc">Cauliflower and potatoes with Punjabi spices.</p>
             <div class="dish-meta">
-              <span class="dish-price">$13.99</span>
               <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
               <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
               <span class="diet-badge badge-v" aria-label="Vegan">V</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Aloo Gobi to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$13.99</span>
+            <button type="button" class="add-btn" aria-label="Add Aloo Gobi to cart"
             data-name="Aloo Gobi" data-price="13.99">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -917,13 +968,15 @@
             <h3>Chana Masala</h3>
             <p class="dish-desc">Chickpeas spiced in an onion-tomato gravy with coriander.</p>
             <div class="dish-meta">
-              <span class="dish-price">$13.99</span>
               <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
               <span class="diet-badge badge-v" aria-label="Vegan">V</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Chana Masala to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$13.99</span>
+            <button type="button" class="add-btn" aria-label="Add Chana Masala to cart"
             data-name="Chana Masala" data-price="13.99">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -933,12 +986,14 @@
             <h3>Daal Makhani</h3>
             <p class="dish-desc">Creamy black lentil, slow-smoked in the tandoori oven.</p>
             <div class="dish-meta">
-              <span class="dish-price">$14.99</span>
               <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Daal Makhani to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$14.99</span>
+            <button type="button" class="add-btn" aria-label="Add Daal Makhani to cart"
             data-name="Daal Makhani" data-price="14.99">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -948,12 +1003,15 @@
             <h3>Mataar Paneer</h3>
             <p class="dish-desc">Peas and farmer's cheese in a creamy curry sauce.</p>
             <div class="dish-meta">
-              <span class="dish-price">$14.99</span>
               <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Mataar Paneer to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$14.99</span>
+            <button type="button" class="add-btn" aria-label="Add Mataar Paneer to cart"
             data-name="Mataar Paneer" data-price="14.99">Add to Cart</button>
+          </div>
+        </div>
         </div>
       </section>
 
@@ -961,18 +1019,20 @@
       <section class="cat-section" id="cat-breads" aria-labelledby="heading-breads">
         <h2 id="heading-breads">Tandoori Breads</h2>
 
+
+        <div class="dish-grid">
         <div class="dish-card">
           <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/garlic-cheese-naan.avif"
             alt="Garlic cheese naan stuffed with garlic, cheese, and cilantro">
           <div class="dish-info">
             <h3>Garlic Cheese Naan</h3>
             <p class="dish-desc">Naan stuffed with garlic, cheese, and cilantro.</p>
-            <div class="dish-meta">
-              <span class="dish-price">$3.99</span>
-            </div>
-          </div>
-          <button type="button" class="add-btn" aria-label="Add Garlic Cheese Naan to cart"
+                      </div>
+          <div class="dish-bottom">
+            <span class="dish-price">$3.99</span>
+            <button type="button" class="add-btn" aria-label="Add Garlic Cheese Naan to cart"
             data-name="Garlic Cheese Naan" data-price="3.99">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -981,12 +1041,12 @@
           <div class="dish-info">
             <h3>Garlic Naan</h3>
             <p class="dish-desc">Naan bread baked with fresh garlic in the tandoori oven.</p>
-            <div class="dish-meta">
-              <span class="dish-price">$3.50</span>
-            </div>
-          </div>
-          <button type="button" class="add-btn" aria-label="Add Garlic Naan to cart"
+                      </div>
+          <div class="dish-bottom">
+            <span class="dish-price">$3.50</span>
+            <button type="button" class="add-btn" aria-label="Add Garlic Naan to cart"
             data-name="Garlic Naan" data-price="3.50">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -995,12 +1055,12 @@
           <div class="dish-info">
             <h3>Roti</h3>
             <p class="dish-desc">Whole wheat flatbread baked in the tandoori oven.</p>
-            <div class="dish-meta">
-              <span class="dish-price">$2.99</span>
-            </div>
-          </div>
-          <button type="button" class="add-btn" aria-label="Add Roti to cart"
+                      </div>
+          <div class="dish-bottom">
+            <span class="dish-price">$2.99</span>
+            <button type="button" class="add-btn" aria-label="Add Roti to cart"
             data-name="Roti" data-price="2.99">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -1009,12 +1069,13 @@
           <div class="dish-info">
             <h3>Naan</h3>
             <p class="dish-desc">Classic leavened flatbread baked in the tandoori oven.</p>
-            <div class="dish-meta">
-              <span class="dish-price">$2.50</span>
-            </div>
-          </div>
-          <button type="button" class="add-btn" aria-label="Add Naan to cart"
+                      </div>
+          <div class="dish-bottom">
+            <span class="dish-price">$2.50</span>
+            <button type="button" class="add-btn" aria-label="Add Naan to cart"
             data-name="Naan" data-price="2.50">Add to Cart</button>
+          </div>
+        </div>
         </div>
       </section>
 
@@ -1022,6 +1083,8 @@
       <section class="cat-section" id="cat-himalayan" aria-labelledby="heading-himalayan">
         <h2 id="heading-himalayan">Himalayan Entrees</h2>
 
+
+        <div class="dish-grid">
         <div class="dish-card">
           <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/Momos-Friday.avif"
             alt="Steamed Himalayan momos dumplings on a plate">
@@ -1029,12 +1092,14 @@
             <h3>Momos</h3>
             <p class="dish-desc">Steamed Himalayan dumplings with your choice of filling.</p>
             <div class="dish-meta">
-              <span class="dish-price">$13.99</span>
               <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Momos to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$13.99</span>
+            <button type="button" class="add-btn" aria-label="Add Momos to cart"
             data-name="Momos" data-price="13.99">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -1044,12 +1109,14 @@
             <h3>Chow Mein</h3>
             <p class="dish-desc">Stir-fried noodles with vegetables and your choice of protein.</p>
             <div class="dish-meta">
-              <span class="dish-price">$13.99</span>
               <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Chow Mein to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$13.99</span>
+            <button type="button" class="add-btn" aria-label="Add Chow Mein to cart"
             data-name="Chow Mein" data-price="13.99">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -1059,13 +1126,16 @@
             <h3>Himalayan Chilli Chicken</h3>
             <p class="dish-desc">Spicy chilli chicken tossed with peppers and onions.</p>
             <div class="dish-meta">
-              <span class="dish-price">$15.99</span>
               <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
               <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Himalayan Chilli Chicken to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$15.99</span>
+            <button type="button" class="add-btn" aria-label="Add Himalayan Chilli Chicken to cart"
             data-name="Himalayan Chilli Chicken" data-price="15.99">Add to Cart</button>
+          </div>
+        </div>
         </div>
       </section>
 
@@ -1073,6 +1143,8 @@
       <section class="cat-section" id="cat-kebabs" aria-labelledby="heading-kebabs">
         <h2 id="heading-kebabs">Kebabs</h2>
 
+
+        <div class="dish-grid">
         <div class="dish-card">
           <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/kbob.avif"
             alt="Tandoori Kitchen kebab skewers grilled in a clay oven on a bed of vegetables and rice">
@@ -1080,12 +1152,14 @@
             <h3>Tandoori Kitchen Kebabs</h3>
             <p class="dish-desc">Marinated in turmeric, garlic, and ginger house seasoning, grilled and smoked in a traditional tandoori clay oven; served on a bell pepper and zucchini bed with rice.</p>
             <div class="dish-meta">
-              <span class="dish-price">$15.99</span>
               <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Tandoori Kitchen Kebabs to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$15.99</span>
+            <button type="button" class="add-btn" aria-label="Add Tandoori Kitchen Kebabs to cart"
             data-name="Tandoori Kitchen Kebabs" data-price="15.99">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -1095,12 +1169,14 @@
             <h3>Tandoori Chicken</h3>
             <p class="dish-desc">Half chicken marinated in yogurt and spices, roasted in the tandoori oven.</p>
             <div class="dish-meta">
-              <span class="dish-price">$14.99</span>
               <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Tandoori Chicken to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$14.99</span>
+            <button type="button" class="add-btn" aria-label="Add Tandoori Chicken to cart"
             data-name="Tandoori Chicken" data-price="14.99">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -1110,12 +1186,15 @@
             <h3>Honey Tikka Kebabs</h3>
             <p class="dish-desc">Boneless chicken skewers glazed with honey, garlic, and ginger.</p>
             <div class="dish-meta">
-              <span class="dish-price">$15.99</span>
               <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Honey Tikka Kebabs to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$15.99</span>
+            <button type="button" class="add-btn" aria-label="Add Honey Tikka Kebabs to cart"
             data-name="Honey Tikka Kebabs" data-price="15.99">Add to Cart</button>
+          </div>
+        </div>
         </div>
       </section>
 
@@ -1123,6 +1202,8 @@
       <section class="cat-section" id="cat-biryani" aria-labelledby="heading-biryani">
         <h2 id="heading-biryani">Biryani</h2>
 
+
+        <div class="dish-grid">
         <div class="dish-card">
           <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/biryani.avif"
             alt="Fragrant chicken biryani rice layered with spices and saffron">
@@ -1130,13 +1211,15 @@
             <h3>Chicken Biryani</h3>
             <p class="dish-desc">Fragrant basmati rice layered with spices, saffron, and tender chicken.</p>
             <div class="dish-meta">
-              <span class="dish-price">$14.99</span>
               <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
               <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Chicken Biryani to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$14.99</span>
+            <button type="button" class="add-btn" aria-label="Add Chicken Biryani to cart"
             data-name="Chicken Biryani" data-price="14.99">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -1146,14 +1229,16 @@
             <h3>Vegetable Biryani</h3>
             <p class="dish-desc">Fragrant basmati rice layered with spices, saffron, and seasonal vegetables.</p>
             <div class="dish-meta">
-              <span class="dish-price">$14.99</span>
               <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
               <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
               <span class="diet-badge badge-v" aria-label="Vegan">V</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Vegetable Biryani to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$14.99</span>
+            <button type="button" class="add-btn" aria-label="Add Vegetable Biryani to cart"
             data-name="Vegetable Biryani" data-price="14.99">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -1163,13 +1248,16 @@
             <h3>Lamb Biryani</h3>
             <p class="dish-desc">Fragrant basmati rice layered with spices, saffron, and slow-cooked lamb.</p>
             <div class="dish-meta">
-              <span class="dish-price">$14.99</span>
               <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
               <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Lamb Biryani to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$14.99</span>
+            <button type="button" class="add-btn" aria-label="Add Lamb Biryani to cart"
             data-name="Lamb Biryani" data-price="14.99">Add to Cart</button>
+          </div>
+        </div>
         </div>
       </section>
 
@@ -1177,6 +1265,8 @@
       <section class="cat-section" id="cat-soups" aria-labelledby="heading-soups">
         <h2 id="heading-soups">Soups &amp; Salads</h2>
 
+
+        <div class="dish-grid">
         <div class="dish-card">
           <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/caesar-salad-cheesy-6-min.avif"
             alt="Tandoori chicken caesar salad with romaine and parmesan">
@@ -1184,12 +1274,14 @@
             <h3>Tandoori Chicken Caesar Salad</h3>
             <p class="dish-desc">Romaine lettuce with tandoori chicken, parmesan, and caesar dressing.</p>
             <div class="dish-meta">
-              <span class="dish-price">$10.00</span>
               <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Tandoori Chicken Caesar Salad to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$10.00</span>
+            <button type="button" class="add-btn" aria-label="Add Tandoori Chicken Caesar Salad to cart"
             data-name="Tandoori Chicken Caesar Salad" data-price="10.00">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -1199,14 +1291,16 @@
             <h3>Daal Soup</h3>
             <p class="dish-desc">Warm lentil soup spiced with cumin and turmeric.</p>
             <div class="dish-meta">
-              <span class="dish-price">$5.00</span>
               <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
               <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
               <span class="diet-badge badge-v" aria-label="Vegan">V</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Daal Soup to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$5.00</span>
+            <button type="button" class="add-btn" aria-label="Add Daal Soup to cart"
             data-name="Daal Soup" data-price="5.00">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -1216,14 +1310,17 @@
             <h3>Green Salad</h3>
             <p class="dish-desc">Fresh mixed greens with house vinaigrette.</p>
             <div class="dish-meta">
-              <span class="dish-price">$6.00</span>
               <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
               <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
               <span class="diet-badge badge-v" aria-label="Vegan">V</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Green Salad to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$6.00</span>
+            <button type="button" class="add-btn" aria-label="Add Green Salad to cart"
             data-name="Green Salad" data-price="6.00">Add to Cart</button>
+          </div>
+        </div>
         </div>
       </section>
 
@@ -1231,6 +1328,8 @@
       <section class="cat-section" id="cat-sides" aria-labelledby="heading-sides">
         <h2 id="heading-sides">Sides</h2>
 
+
+        <div class="dish-grid">
         <div class="dish-card">
           <img src="https://tandoorikitchenco.com/wp-content/uploads/2020/09/Webp.net-resizeimage-150x150.avif"
             alt="Steamed basmati rice in a serving bowl">
@@ -1238,14 +1337,16 @@
             <h3>Basmati Rice</h3>
             <p class="dish-desc">Steamed aromatic long-grain basmati rice.</p>
             <div class="dish-meta">
-              <span class="dish-price">$2.50</span>
               <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
               <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
               <span class="diet-badge badge-v" aria-label="Vegan">V</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Basmati Rice to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$2.50</span>
+            <button type="button" class="add-btn" aria-label="Add Basmati Rice to cart"
             data-name="Basmati Rice" data-price="2.50">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -1255,12 +1356,14 @@
             <h3>Raita</h3>
             <p class="dish-desc">Cooling yogurt with cucumber, cumin, and fresh herbs.</p>
             <div class="dish-meta">
-              <span class="dish-price">$2.99</span>
               <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Raita to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$2.99</span>
+            <button type="button" class="add-btn" aria-label="Add Raita to cart"
             data-name="Raita" data-price="2.99">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -1270,14 +1373,17 @@
             <h3>Mango Chutney</h3>
             <p class="dish-desc">Sweet and tangy mango chutney condiment.</p>
             <div class="dish-meta">
-              <span class="dish-price">$2.99</span>
               <span class="diet-badge badge-gf" aria-label="Gluten Free">GF</span>
               <span class="diet-badge badge-df" aria-label="Dairy Free">DF</span>
               <span class="diet-badge badge-v" aria-label="Vegan">V</span>
             </div>
           </div>
-          <button type="button" class="add-btn" aria-label="Add Mango Chutney to cart"
+          <div class="dish-bottom">
+            <span class="dish-price">$2.99</span>
+            <button type="button" class="add-btn" aria-label="Add Mango Chutney to cart"
             data-name="Mango Chutney" data-price="2.99">Add to Cart</button>
+          </div>
+        </div>
         </div>
       </section>
 
@@ -1285,18 +1391,20 @@
       <section class="cat-section" id="cat-desserts" aria-labelledby="heading-desserts">
         <h2 id="heading-desserts">Desserts</h2>
 
+
+        <div class="dish-grid">
         <div class="dish-card">
           <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/08/gulab-jamon-2.avif"
             alt="Golden gulab jamun dessert balls soaked in rose-scented syrup">
           <div class="dish-info">
             <h3>Gulab Jamun</h3>
             <p class="dish-desc">Deep-fried milk dumplings soaked in rose-scented sugar syrup.</p>
-            <div class="dish-meta">
-              <span class="dish-price">$5.00</span>
-            </div>
-          </div>
-          <button type="button" class="add-btn" aria-label="Add Gulab Jamun to cart"
+                      </div>
+          <div class="dish-bottom">
+            <span class="dish-price">$5.00</span>
+            <button type="button" class="add-btn" aria-label="Add Gulab Jamun to cart"
             data-name="Gulab Jamun" data-price="5.00">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -1305,12 +1413,12 @@
           <div class="dish-info">
             <h3>Kheer</h3>
             <p class="dish-desc">Traditional Indian rice pudding with cardamom and pistachios.</p>
-            <div class="dish-meta">
-              <span class="dish-price">$5.00</span>
-            </div>
-          </div>
-          <button type="button" class="add-btn" aria-label="Add Kheer to cart"
+                      </div>
+          <div class="dish-bottom">
+            <span class="dish-price">$5.00</span>
+            <button type="button" class="add-btn" aria-label="Add Kheer to cart"
             data-name="Kheer" data-price="5.00">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -1319,12 +1427,13 @@
           <div class="dish-info">
             <h3>Keshari Ras Malai</h3>
             <p class="dish-desc">Soft cheese patties in sweetened, cardamom-infused cream.</p>
-            <div class="dish-meta">
-              <span class="dish-price">$6.00</span>
-            </div>
-          </div>
-          <button type="button" class="add-btn" aria-label="Add Keshari Ras Malai to cart"
+                      </div>
+          <div class="dish-bottom">
+            <span class="dish-price">$6.00</span>
+            <button type="button" class="add-btn" aria-label="Add Keshari Ras Malai to cart"
             data-name="Keshari Ras Malai" data-price="6.00">Add to Cart</button>
+          </div>
+        </div>
         </div>
       </section>
 
@@ -1332,18 +1441,20 @@
       <section class="cat-section" id="cat-drinks" aria-labelledby="heading-drinks">
         <h2 id="heading-drinks">Drinks</h2>
 
+
+        <div class="dish-grid">
         <div class="dish-card">
           <img src="https://tandoorikitchenco.com/wp-content/uploads/2019/10/05861841-809E-4162-81D1-5FEE27227913-scaled-jpeg.avif"
             alt="Tall glass of mango lassi yogurt smoothie">
           <div class="dish-info">
             <h3>Mango Lassi</h3>
             <p class="dish-desc">Creamy yogurt smoothie blended with sweet mango.</p>
-            <div class="dish-meta">
-              <span class="dish-price">$4.00</span>
-            </div>
-          </div>
-          <button type="button" class="add-btn" aria-label="Add Mango Lassi to cart"
+                      </div>
+          <div class="dish-bottom">
+            <span class="dish-price">$4.00</span>
+            <button type="button" class="add-btn" aria-label="Add Mango Lassi to cart"
             data-name="Mango Lassi" data-price="4.00">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -1352,12 +1463,12 @@
           <div class="dish-info">
             <h3>Chai</h3>
             <p class="dish-desc">Traditional masala chai brewed with ginger, cardamom, and cinnamon.</p>
-            <div class="dish-meta">
-              <span class="dish-price">$4.00</span>
-            </div>
-          </div>
-          <button type="button" class="add-btn" aria-label="Add Chai to cart"
+                      </div>
+          <div class="dish-bottom">
+            <span class="dish-price">$4.00</span>
+            <button type="button" class="add-btn" aria-label="Add Chai to cart"
             data-name="Chai" data-price="4.00">Add to Cart</button>
+          </div>
         </div>
 
         <div class="dish-card">
@@ -1366,12 +1477,13 @@
           <div class="dish-info">
             <h3>Iced Chai</h3>
             <p class="dish-desc">Chilled masala chai served over ice.</p>
-            <div class="dish-meta">
-              <span class="dish-price">$4.00</span>
-            </div>
-          </div>
-          <button type="button" class="add-btn" aria-label="Add Iced Chai to cart"
+                      </div>
+          <div class="dish-bottom">
+            <span class="dish-price">$4.00</span>
+            <button type="button" class="add-btn" aria-label="Add Iced Chai to cart"
             data-name="Iced Chai" data-price="4.00">Add to Cart</button>
+          </div>
+        </div>
         </div>
       </section>
 
