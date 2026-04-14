@@ -5,10 +5,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description"
-    content="Contact Tandoori Kitchen — Indian and Himalayan cuisine in Lafayette, CO. Accessible redesign for ATLS 4519 / CSCI 4830.">
+    content="Redesigned accessible Contact page for Tandoori Kitchen — proper form labels, error handling, and screen reader support.">
   <meta name="author" content="Fernando Picoral">
 
-  <title>Contact Us — Tandoori Kitchen | ATLS 4519 / CSCI 4830 Extra Credit</title>
+  <title>Contact Us — Tandoori Kitchen | ATLS 4519</title>
 
   <!-- Bootstrap 4 CDN -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
@@ -33,20 +33,25 @@
        =========================== */
     .skip-link {
       position: absolute;
-      top: -100%;
+      top: -100px;
       left: 0;
       background: var(--tk-focus);
       color: #fff;
       padding: 0.75rem 1.5rem;
       z-index: 9999;
       font-weight: 700;
+      font-size: 1rem;
       text-decoration: none;
       border-radius: 0 0 6px 0;
     }
 
     .skip-link:focus {
+      position: fixed;
       top: 0;
+      left: 0;
       color: #fff;
+      outline: 2px solid #fff;
+      outline-offset: -4px;
     }
 
     /* ===========================
@@ -682,7 +687,7 @@
         <form id="contact-form" class="contact-form" novalidate aria-labelledby="form-heading">
 
           <!-- Form-level error summary (announced via aria-live) -->
-          <div id="form-status" class="form-status" role="alert" aria-live="assertive"></div>
+          <div id="form-status" class="form-status" role="alert" aria-live="assertive" tabindex="-1"></div>
 
           <div class="form-row">
             <!-- Name -->
@@ -805,8 +810,9 @@
     <div class="container">
       <p class="mb-1">ATLS 4519 / CSCI 4830 &mdash; Web Accessibility &mdash; Extra Credit</p>
       <p class="mb-0">
-        <a href="index.html">View Accessibility Components</a> &bull;
+        <a href="index.html">Accessibility Components</a> &bull;
         <a href="order-online.html">Order Online</a> &bull;
+        <a href="contact.html">Contact</a> &bull;
         Data sourced from <a href="https://tandoorikitchenco.com/">tandoorikitchenco.com</a>
       </p>
     </div>

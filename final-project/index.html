@@ -4,10 +4,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="ATLS 4519 / CSCI 4830 Final Project: Six corrected accessibility components from Tandoori Kitchen restaurant website.">
+  <meta name="description" content="Accessibility fixes for Tandoori Kitchen website — 6 corrected components demonstrating WCAG 2.1 compliance improvements.">
   <meta name="author" content="Fernando Picoral">
 
-  <title>Accessibility Fixes — Tandoori Kitchen | ATLS 4519 / CSCI 4830 Final Project</title>
+  <title>Tandoori Kitchen — Accessibility Fixes | ATLS 4519</title>
 
   <!-- Bootstrap 4 CDN -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
@@ -17,26 +17,37 @@
     /* ---- Skip Link ---- */
     .skip-link {
       position: absolute;
-      top: -100%;
+      top: -100px;
       left: 0;
       background: #0d6efd;
       color: #fff;
       padding: 0.75rem 1.5rem;
       z-index: 9999;
       font-weight: 600;
+      font-size: 1rem;
       text-decoration: none;
       border-radius: 0 0 4px 0;
     }
 
     .skip-link:focus {
+      position: fixed;
       top: 0;
+      left: 0;
       color: #fff;
+      outline: 2px solid #fff;
+      outline-offset: -4px;
     }
 
     /* ---- Global focus-visible ---- */
     *:focus-visible {
       outline: 2px solid #0d6efd;
       outline-offset: 2px;
+    }
+
+    /* ---- Navbar active link ---- */
+    .navbar-dark .nav-link.active {
+      color: #d4a843 !important;
+      border-bottom: 2px solid #d4a843;
     }
 
     /* ---- Sticky TOC ---- */
@@ -260,10 +271,10 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" aria-label="Primary navigation">
       <div class="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
           <img src="https://tandoorikitchenco.com/wp-content/uploads/2020/09/Webp.net-resizeimage-150x150.avif"
             alt="Tandoori Kitchen logo" width="30" height="30" class="d-inline-block align-top rounded-circle mr-2">
-          Tandoori Kitchen &mdash; A11y Fixes
+          Tandoori Kitchen
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#primaryNav"
           aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -271,12 +282,13 @@
         </button>
         <div class="collapse navbar-collapse" id="primaryNav">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a class="nav-link" href="#section-headings">Headings</a></li>
-            <li class="nav-item"><a class="nav-link" href="#section-alt">Alt Text</a></li>
-            <li class="nav-item"><a class="nav-link" href="#section-focus">Focus</a></li>
-            <li class="nav-item"><a class="nav-link" href="#section-aria">ARIA</a></li>
-            <li class="nav-item"><a class="nav-link" href="#section-diet">Dietary</a></li>
-            <li class="nav-item"><a class="nav-link" href="#section-forms">Forms</a></li>
+            <li class="nav-item"><a class="nav-link active" href="index.html" aria-current="page">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="order-online.html">Order Online</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://tandoorikitchenco.com/menu/">Menu</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://tandoorikitchenco.com/lunch-buffet/">Lunch Buffet</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://tandoorikitchenco.com/catering/">Catering</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://tandoorikitchenco.com/about/">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
           </ul>
         </div>
       </div>
@@ -778,14 +790,14 @@
   </main>
 
   <!-- ====== FOOTER ====== -->
-  <footer class="py-4 text-center text-white mt-5">
+  <footer class="py-4 text-center text-white mt-5" style="background:#1a1a1a;">
     <div class="container">
       <p class="mb-1">ATLS 4519 / CSCI 4830 &mdash; Web Accessibility &mdash; Final Project</p>
-      <p class="mb-1 small">
-        <a href="order-online.html" class="text-light">View Redesigned Order Online Page (Extra Credit)</a>
-      </p>
-      <p class="mb-0 small">Data sourced from
-        <a href="https://tandoorikitchenco.com/" class="text-light">tandoorikitchenco.com</a>
+      <p class="mb-0 small">
+        <a href="index.html" class="text-light">Accessibility Components</a> &bull;
+        <a href="order-online.html" class="text-light">Order Online</a> &bull;
+        <a href="contact.html" class="text-light">Contact</a> &bull;
+        Data sourced from <a href="https://tandoorikitchenco.com/" class="text-light">tandoorikitchenco.com</a>
       </p>
     </div>
   </footer>
