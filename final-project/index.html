@@ -13,253 +13,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
     integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
-  <style>
-    /* ---- Skip Link ---- */
-    .skip-link {
-      position: absolute;
-      top: -100px;
-      left: 0;
-      background: #0d6efd;
-      color: #fff;
-      padding: 0.75rem 1.5rem;
-      z-index: 9999;
-      font-weight: 600;
-      font-size: 1rem;
-      text-decoration: none;
-      border-radius: 0 0 4px 0;
-    }
-
-    .skip-link:focus {
-      position: fixed;
-      top: 0;
-      left: 0;
-      color: #fff;
-      outline: 2px solid #fff;
-      outline-offset: -4px;
-    }
-
-    /* ---- Global focus-visible ---- */
-    *:focus-visible {
-      outline: 2px solid #0d6efd;
-      outline-offset: 2px;
-    }
-
-    /* ---- Navbar active link ---- */
-    .navbar-dark .nav-link.active {
-      color: #d4a843 !important;
-      border-bottom: 2px solid #d4a843;
-    }
-
-    /* ---- Sticky TOC ---- */
-    .toc-nav {
-      position: sticky;
-      top: 56px;
-      z-index: 1020;
-      background: #f8f9fa;
-      border-bottom: 1px solid #dee2e6;
-    }
-
-    .toc-nav .nav-link {
-      padding: 0.5rem 0.75rem;
-      color: #495057;
-      font-size: 0.875rem;
-      white-space: nowrap;
-    }
-
-    .toc-nav .nav-link:hover,
-    .toc-nav .nav-link:focus {
-      color: #0d6efd;
-    }
-
-    /* ---- Issue / Fix cards ---- */
-    .issue-fix-card {
-      background: #f8f9fa;
-      border-left: 4px solid #6c757d;
-      padding: 1rem 1.25rem;
-      margin-bottom: 1.5rem;
-      font-size: 0.9rem;
-      border-radius: 0 4px 4px 0;
-    }
-
-    .issue-fix-card .label-issue {
-      color: #dc3545;
-      font-weight: 700;
-    }
-
-    .issue-fix-card .label-fix {
-      color: #198754;
-      font-weight: 700;
-    }
-
-    /* ---- Section spacing ---- */
-    .demo-section {
-      padding-top: 2rem;
-      padding-bottom: 2rem;
-      border-bottom: 1px solid #dee2e6;
-    }
-
-    .demo-section:last-child {
-      border-bottom: none;
-    }
-
-    /* ---- Section 2: Product cards ---- */
-    .food-card img {
-      height: 220px;
-      object-fit: cover;
-      width: 100%;
-    }
-
-    /* ---- Section 3: Focus demo ---- */
-    .focus-demo-nav .nav-link {
-      color: #333;
-      border: 1px solid transparent;
-      border-radius: 4px;
-      padding: 0.5rem 1rem;
-    }
-
-    .focus-demo-nav .nav-link:focus-visible {
-      outline: 2px solid #0d6efd;
-      outline-offset: 2px;
-    }
-
-    .focus-demo-nav .nav-link.active {
-      background: #c1272d;
-      color: #fff;
-    }
-
-    .category-tabs .btn {
-      margin: 0.25rem;
-    }
-
-    .category-tabs .btn:focus-visible {
-      outline: 2px solid #0d6efd;
-      outline-offset: 2px;
-    }
-
-    .focus-demo-card .btn:focus-visible {
-      outline: 2px solid #0d6efd;
-      outline-offset: 2px;
-    }
-
-    .social-icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: #333;
-      color: #fff;
-      text-decoration: none;
-      font-size: 1rem;
-      margin: 0 0.25rem;
-    }
-
-    .social-icon:hover,
-    .social-icon:focus-visible {
-      background: #c1272d;
-      color: #fff;
-      text-decoration: none;
-    }
-
-    .social-icon:focus-visible {
-      outline: 2px solid #0d6efd;
-      outline-offset: 2px;
-    }
-
-    /* ---- Section 4: Cart buttons ---- */
-    .cart-btn {
-      background: #c1272d;
-      color: #fff;
-      border: none;
-      padding: 0.5rem 1.25rem;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .cart-btn:hover {
-      background: #a11f25;
-      color: #fff;
-    }
-
-    .cart-btn:focus-visible {
-      outline: 2px solid #0d6efd;
-      outline-offset: 2px;
-    }
-
-    /* ---- Section 5: Dietary badges ---- */
-    .badge-gf {
-      background: #198754;
-      color: #fff;
-    }
-
-    .badge-df {
-      background: #0d6efd;
-      color: #fff;
-    }
-
-    .badge-v {
-      background: #6f42c1;
-      color: #fff;
-    }
-
-    .diet-badge {
-      display: inline-block;
-      padding: 0.2em 0.55em;
-      font-size: 0.75rem;
-      font-weight: 700;
-      border-radius: 3px;
-      margin-right: 0.25rem;
-    }
-
-    /* ---- Section 5: Legend ---- */
-    .legend-box {
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      padding: 0.75rem 1rem;
-      background: #fff3cd;
-      border: 1px solid #ffc107;
-      border-radius: 4px;
-      margin-bottom: 1.5rem;
-    }
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.9rem;
-    }
-
-    /* ---- Section 6: Form ---- */
-    .form-section label {
-      font-weight: 600;
-    }
-
-    /* ---- Footer ---- */
-    footer {
-      background: #1a1a1a;
-    }
-
-    /* ---- Tab hint ---- */
-    .tab-hint {
-      background: #e9ecef;
-      border-radius: 4px;
-      padding: 0.5rem 1rem;
-      font-size: 0.85rem;
-      display: inline-block;
-      margin-bottom: 1rem;
-    }
-
-    .tab-hint kbd {
-      background: #333;
-      color: #fff;
-      padding: 0.15em 0.5em;
-      border-radius: 3px;
-      font-size: 0.85em;
-    }
-  </style>
+  <!-- Page styles -->
+  <link rel="stylesheet" href="css/index.css">
 </head>
 
 <body>
@@ -310,7 +65,7 @@
   </nav>
 
   <!-- ====== MAIN CONTENT ====== -->
-  <main id="main-content" style="margin-top: 100px;">
+  <main id="main-content" class="main-content">
     <div class="container">
 
       <div class="my-4 text-center">
@@ -444,8 +199,7 @@
             <div class="card food-card h-100">
               <img
                 src="https://tandoorikitchenco.com/wp-content/uploads/2020/09/Webp.net-resizeimage-150x150.avif"
-                alt="Tandoori Kitchen logo" class="card-img-top p-4 bg-light"
-                style="height:220px; object-fit:contain;">
+                alt="Tandoori Kitchen logo" class="card-img-top card-img-logo p-4 bg-light">
               <div class="card-body">
                 <h3 class="h5 card-title">Logo</h3>
                 <p class="card-text"><code>alt="Tandoori Kitchen logo"</code></p>
@@ -565,7 +319,7 @@
         </div>
 
         <!-- Search input -->
-        <div class="mt-3" style="max-width:350px;">
+        <div class="mt-3 search-wrapper">
           <label for="focus-search" class="sr-only">Search menu</label>
           <input id="focus-search" type="search" class="form-control" placeholder="Search menu...">
         </div>
@@ -790,7 +544,7 @@
   </main>
 
   <!-- ====== FOOTER ====== -->
-  <footer class="py-4 text-center text-white mt-5" style="background:#1a1a1a;">
+  <footer class="py-4 text-center text-white mt-5">
     <div class="container">
       <p class="mb-1">ATLS 4519 / CSCI 4830 &mdash; Web Accessibility &mdash; Final Project</p>
       <p class="mb-0 small">

@@ -1,0 +1,517 @@
+/* ============================================================
+   contact.html — Accessible Contact Page
+   ATLS 4519 / CSCI 4830 Extra Credit
+   ============================================================ */
+
+/* ===========================
+   VARIABLES (match order-online.css)
+   =========================== */
+:root {
+  --tk-red: #c1272d;
+  --tk-red-dark: #9e1f24;
+  --tk-gold: #d4a843;
+  --tk-dark: #1a1a1a;
+  --tk-focus: #0d6efd;
+  --tk-error: #dc3545;
+  --tk-success: #198754;
+}
+
+/* ===========================
+   SKIP LINK
+   =========================== */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: var(--tk-focus);
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  z-index: 9999;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  border-radius: 0 0 6px 0;
+}
+
+.skip-link:focus {
+  position: fixed;
+  top: 0;
+  left: 0;
+  color: #fff;
+  outline: 2px solid #fff;
+  outline-offset: -4px;
+}
+
+/* ===========================
+   GLOBAL FOCUS
+   =========================== */
+*:focus-visible {
+  outline: 2px solid var(--tk-focus);
+  outline-offset: 2px;
+}
+
+/* ===========================
+   BODY
+   =========================== */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: #f5f5f5;
+}
+
+/* ===========================
+   HEADER / NAV (match order-online.css)
+   =========================== */
+.site-header {
+  background: var(--tk-dark);
+}
+
+.site-header .navbar-brand img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.site-header .nav-link {
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-weight: 500;
+}
+
+.site-header .nav-link:hover,
+.site-header .nav-link:focus {
+  color: var(--tk-gold) !important;
+}
+
+.site-header .nav-link.active {
+  color: var(--tk-gold) !important;
+  border-bottom: 2px solid var(--tk-gold);
+}
+
+/* ===========================
+   HERO
+   =========================== */
+.hero {
+  position: relative;
+  background: url('https://tandoorikitchenco.com/wp-content/uploads/2022/04/DSC00711-min.jpeg') center/cover no-repeat;
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  padding: 2.5rem 1rem;
+  max-width: 800px;
+}
+
+.hero-content h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.hero-content p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 0;
+}
+
+/* ===========================
+   MAIN LAYOUT
+   =========================== */
+main {
+  padding: 2.5rem 1rem 3rem;
+}
+
+.section-heading {
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--tk-dark);
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+/* ===========================
+   INFO CARDS
+   =========================== */
+.info-cards {
+  margin-bottom: 3rem;
+}
+
+.info-card {
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 10px;
+  padding: 1.75rem 1.25rem;
+  text-align: center;
+  height: 100%;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.info-card:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.info-card .icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #fef3f3;
+  color: var(--tk-red);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.info-card .icon-wrap svg {
+  width: 28px;
+  height: 28px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.info-card h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--tk-dark);
+  margin-bottom: 0.5rem;
+}
+
+.info-card p,
+.info-card a {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.info-card a {
+  color: var(--tk-red);
+  text-decoration: none;
+}
+
+.info-card a:hover {
+  text-decoration: underline;
+}
+
+.info-card a:focus-visible {
+  outline: 2px solid var(--tk-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Bold visible label on each info card (Phone / Email / Address / Hours) */
+.info-card .info-card-label {
+  font-weight: 700;
+  color: var(--tk-dark);
+  margin-bottom: 0.35rem;
+}
+
+/* ===========================
+   SOCIAL LINKS
+   =========================== */
+.social-section {
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.social-section h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--tk-dark);
+  margin-bottom: 1.25rem;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #fff;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 30px;
+  padding: 0.6rem 1.4rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #333;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+
+.social-link:hover {
+  background: var(--tk-red);
+  border-color: var(--tk-red);
+  color: #fff;
+  text-decoration: none;
+}
+
+.social-link:focus-visible {
+  outline: 2px solid var(--tk-focus);
+  outline-offset: 2px;
+}
+
+.social-link svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+/* ===========================
+   FORM SECTION
+   =========================== */
+.form-section {
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+  padding: 2.5rem 2rem;
+  margin-bottom: 3rem;
+}
+
+.form-section h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--tk-dark);
+  margin-bottom: 0.5rem;
+}
+
+.form-section .form-intro {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.form-required-note {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.form-required-note .req-mark {
+  color: var(--tk-error);
+  font-weight: 700;
+}
+
+.contact-form label {
+  font-weight: 600;
+  color: var(--tk-dark);
+  margin-bottom: 0.35rem;
+  display: block;
+}
+
+.contact-form label .req-mark {
+  color: var(--tk-error);
+  margin-left: 2px;
+}
+
+.contact-form .form-control,
+.contact-form select.form-control,
+.contact-form textarea.form-control {
+  border: 1.5px solid #ced4da;
+  border-radius: 6px;
+  padding: 0.6rem 0.85rem;
+  font-size: 0.95rem;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.contact-form .form-control:focus-visible {
+  outline: 2px solid var(--tk-focus);
+  outline-offset: 2px;
+  border-color: var(--tk-focus);
+  box-shadow: none;
+}
+
+.contact-form .form-control.is-invalid {
+  border-color: var(--tk-error);
+  background-image: none;
+  padding-right: 0.85rem;
+}
+
+.contact-form .form-control.is-invalid:focus-visible {
+  outline: 2px solid var(--tk-error);
+  border-color: var(--tk-error);
+}
+
+.error-message {
+  display: none;
+  color: var(--tk-error);
+  font-size: 0.85rem;
+  margin-top: 0.35rem;
+  font-weight: 500;
+}
+
+.error-message.show {
+  display: block;
+}
+
+.error-message::before {
+  content: "\26A0 ";
+  font-weight: 700;
+  margin-right: 2px;
+}
+
+.submit-btn {
+  background: var(--tk-red);
+  color: #fff;
+  border: none;
+  padding: 0.75rem 2.25rem;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.submit-btn:hover {
+  background: var(--tk-red-dark);
+  color: #fff;
+}
+
+.submit-btn:focus-visible {
+  outline: 2px solid var(--tk-focus);
+  outline-offset: 2px;
+}
+
+.form-status {
+  margin-top: 1.25rem;
+  padding: 0.85rem 1rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  display: none;
+}
+
+.form-status.show {
+  display: block;
+}
+
+.form-status.success {
+  background: #d1e7dd;
+  color: #0f5132;
+  border: 1px solid #badbcc;
+}
+
+.form-status.error-summary {
+  background: #f8d7da;
+  color: #842029;
+  border: 1px solid #f5c2c7;
+}
+
+/* ===========================
+   MAP SECTION
+   =========================== */
+.map-section {
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+  padding: 2rem 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.map-section h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--tk-dark);
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.map-section .map-intro {
+  text-align: center;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.map-wrapper {
+  position: relative;
+  padding-bottom: 45%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.map-wrapper iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ===========================
+   FOOTER (match order-online.css)
+   =========================== */
+.site-footer {
+  background: var(--tk-dark);
+  color: #ccc;
+  padding: 1.25rem 0;
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+.site-footer a {
+  color: var(--tk-gold);
+}
+
+.site-footer a:hover,
+.site-footer a:focus {
+  color: #fff;
+}
+
+/* ===========================
+   SR-ONLY
+   =========================== */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ===========================
+   RESPONSIVE
+   =========================== */
+@media (max-width: 767px) {
+  .hero-content h1 {
+    font-size: 1.75rem;
+  }
+
+  .form-section {
+    padding: 1.75rem 1.25rem;
+  }
+}
