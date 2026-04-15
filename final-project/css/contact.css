@@ -135,8 +135,12 @@ body {
 /* ===========================
    MAIN LAYOUT
    =========================== */
-main {
-  padding: 2.5rem 1rem 3rem;
+/* Hero is a direct child of <main> and should span full-width (no padding).
+   Vertical spacing is applied only to the inner .container that holds the
+   info cards, form, and map. */
+main > .container {
+  padding-top: 2.5rem;
+  padding-bottom: 3rem;
 }
 
 .section-heading {
