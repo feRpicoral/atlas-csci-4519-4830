@@ -3,15 +3,14 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Accessibility fixes for Tandoori Kitchen website — 6 corrected components demonstrating WCAG 2.1 compliance improvements.">
   <meta name="author" content="Fernando Picoral">
 
   <title>Tandoori Kitchen — Accessibility Fixes | ATLS 4519</title>
 
-  <!-- Bootstrap 4 CDN -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <!-- Bootstrap 5.3 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Page styles -->
   <link rel="stylesheet" href="css/index.css">
@@ -28,15 +27,15 @@
       <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="index.html">
           <img src="https://tandoorikitchenco.com/wp-content/uploads/2020/09/Webp.net-resizeimage-150x150.avif"
-            alt="Tandoori Kitchen logo" width="30" height="30" class="d-inline-block align-top rounded-circle mr-2">
+            alt="Tandoori Kitchen logo" width="30" height="30" class="d-inline-block align-top rounded-circle me-2">
           Tandoori Kitchen
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#primaryNav"
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNav"
           aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="primaryNav">
-          <ul class="navbar-nav ml-auto">
+          <ul class="navbar-nav ms-auto">
             <li class="nav-item"><a class="nav-link active" href="index.html" aria-current="page">Home</a></li>
             <li class="nav-item"><a class="nav-link" href="order-online.html">Order Online</a></li>
             <li class="nav-item"><a class="nav-link" href="https://tandoorikitchenco.com/menu/">Menu</a></li>
@@ -313,14 +312,14 @@
         <!-- Social icons -->
         <div class="mb-2">
           <strong>Social links:</strong>
-          <a href="#section-focus" class="social-icon ml-2" aria-label="Facebook">F</a>
+          <a href="#section-focus" class="social-icon ms-2" aria-label="Facebook">F</a>
           <a href="#section-focus" class="social-icon" aria-label="Instagram">I</a>
           <a href="#section-focus" class="social-icon" aria-label="Yelp">Y</a>
         </div>
 
         <!-- Search input -->
         <div class="mt-3 search-wrapper">
-          <label for="focus-search" class="sr-only">Search menu</label>
+          <label for="focus-search" class="visually-hidden">Search menu</label>
           <input id="focus-search" type="search" class="form-control" placeholder="Search menu...">
         </div>
       </section>
@@ -505,7 +504,7 @@
               <div class="card-header"><strong>Find Locations Near You</strong></div>
               <div class="card-body">
                 <form onsubmit="return false;">
-                  <div class="form-group">
+                  <div class="mb-3">
                     <label for="zip-code">Zip Code</label>
                     <input type="text" id="zip-code" class="form-control" placeholder="e.g. 80026"
                       autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}" maxlength="5"
@@ -524,7 +523,7 @@
               <div class="card-header"><strong>Search the Menu</strong></div>
               <div class="card-body">
                 <form role="search" onsubmit="return false;">
-                  <div class="form-group">
+                  <div class="mb-3">
                     <label for="search">Search</label>
                     <input type="search" id="search" class="form-control" placeholder="Search dishes, ingredients...">
                   </div>
@@ -556,13 +555,8 @@
     </div>
   </footer>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9HpGe/27GNcFp0gaOFr096jCIFeSSp+eEo9bJGd"
-    crossorigin="anonymous"></script>
+  <!-- Bootstrap 5.3 JS (no jQuery required) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

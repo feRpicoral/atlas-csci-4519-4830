@@ -3,16 +3,15 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description"
     content="Redesigned accessible Order Online page for Tandoori Kitchen — proper headings, ARIA labels, focus indicators, and keyboard navigation.">
   <meta name="author" content="Fernando Picoral">
 
   <title>Order Online — Tandoori Kitchen | ATLS 4519</title>
 
-  <!-- Bootstrap 4 CDN -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <!-- Bootstrap 5.3 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Page styles -->
   <link rel="stylesheet" href="css/order-online.css">
@@ -32,12 +31,12 @@
             alt="Tandoori Kitchen logo" width="36" height="36">
           Tandoori Kitchen
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#siteNav"
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNav"
           aria-controls="siteNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="siteNav">
-          <ul class="navbar-nav ml-auto">
+          <ul class="navbar-nav ms-auto">
             <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
             <li class="nav-item"><a class="nav-link active" href="order-online.html" aria-current="page">Order Online</a></li>
             <li class="nav-item"><a class="nav-link" href="https://tandoorikitchenco.com/menu/">Menu</a></li>
@@ -112,7 +111,7 @@
 
       <!-- Search -->
       <div class="menu-search">
-        <label for="menu-search-input" class="sr-only">Search the menu</label>
+        <label for="menu-search-input" class="visually-hidden">Search the menu</label>
         <input type="search" id="menu-search-input" class="form-control" placeholder="Search dishes..."
           aria-label="Search the menu">
       </div>
@@ -886,7 +885,7 @@
   </div>
 
   <!-- ======= SCREEN READER ANNOUNCEMENT ======= -->
-  <div id="sr-announce" class="sr-only" aria-live="assertive" role="status"></div>
+  <div id="sr-announce" class="visually-hidden" aria-live="assertive" role="status"></div>
 
   <!-- ======= FOOTER ======= -->
   <footer class="site-footer">
@@ -902,12 +901,8 @@
   </footer>
 
   <!-- ======= JAVASCRIPT ======= -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9HpGe/27GNcFp0gaOFr096jCIFeSSp+eEo9bJGd"
-    crossorigin="anonymous"></script>
+  <!-- Bootstrap 5.3 JS (no jQuery required) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
     (function () {
