@@ -76,13 +76,19 @@
 }
 
 .issue-fix-card .label-issue {
-  color: #dc3545;
+  color: #931A26; /* AA on #f8f9fa (8.44:1) */
   font-weight: 700;
 }
 
 .issue-fix-card .label-fix {
-  color: #198754;
+  color: #13623C; /* AA on #f8f9fa (6.85:1) */
   font-weight: 700;
+}
+
+/* Override Bootstrap 5's default <code> color (#d63384) for AA compliance
+   on the #f8f9fa issue-fix-card background (7.39:1). */
+.issue-fix-card code {
+  color: #991E5C;
 }
 
 /* ---- Section spacing ---- */
